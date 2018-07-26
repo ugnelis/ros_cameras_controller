@@ -1,0 +1,10 @@
+<launch>
+    <!-- Stream URL of th video. -->
+    <arg name="stream_url" default="http://192.178.1.13/mjpg/video.mjpg"/>
+    <!-- Loop rate of the image publisher. -->
+    <arg name="loop_rate" default="5.0"/>
+
+    <node pkg="video_stream_to_topic" type="video_stream_to_topic" name="video_stream_to_topic" output="screen">
+        <param name="stream_url" value="$(arg stream_url)"/>
+    </node>
+</launch>
