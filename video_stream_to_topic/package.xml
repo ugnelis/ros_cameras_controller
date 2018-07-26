@@ -6,10 +6,12 @@
         This package provides "mjpeg" stream to ROS topic capability.
     </description>
     <maintainer email="ugnius@malukas.lt">Ugnius Malukas</maintainer>
+    <author email="ugnius@malukas.lt">Ugnius Malukas</author>
     <license>BSD 3-Clause</license>
 
     <buildtool_depend>catkin</buildtool_depend>
 
     <depend>roscpp</depend>
-    <depend>std_msgs</depend>
+    <depend>image_transport</depend>
+    <depend>cv_bridge</depend>
 </package>

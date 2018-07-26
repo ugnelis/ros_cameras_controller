@@ -2,12 +2,23 @@ cmake_minimum_required(VERSION 2.8.3)
 project(video_stream_to_topic)
 
 add_definitions(-std=c++11)
-find_package(catkin REQUIRED roscpp std_msgs)
+
+find_package(catkin REQUIRED
+    COMPONENTS
+        roscpp
+        image_transport
+        cv_bridge
+)
+
+find_package(OpenCV REQUIRED)
 
 catkin_package(
         INCLUDE_DIRS include
         LIBRARIES ${PROJECT_NAME}_core
-        CATKIN_DEPENDS roscpp std_msgs
+        CATKIN_DEPENDS
+            roscpp
+            image_transport
+            cv_bridge
 )
 
 ###########
@@ -17,6 +28,7 @@ catkin_package(
 include_directories(
         include
         ${catkin_INCLUDE_DIRS}
+        ${OpenCV_INCLUDE_DIRS}
 )
 
 add_executable(
@@ -33,6 +45,7 @@ add_dependencies(
 target_link_libraries(
         ${PROJECT_NAME}
         ${catkin_LIBRARIES}
+        ${OpenCV_LIBRARIES}
 )
 
 #############

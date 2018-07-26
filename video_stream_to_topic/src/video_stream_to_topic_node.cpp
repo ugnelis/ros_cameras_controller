@@ -7,6 +7,5 @@ int main(int argc, char **argv) {
 
     video_stream_to_topic::VideoStreamToTopic videoStreamToTopic(nodeHandle);
 
-    ros::spin();
     return 0;
 }
