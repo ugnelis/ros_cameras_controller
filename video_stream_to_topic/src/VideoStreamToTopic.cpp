@@ -6,11 +6,11 @@ VideoStreamToTopic::VideoStreamToTopic(ros::NodeHandle &nodeHandle)
         : nodeHandle_(nodeHandle)
         , imageTransport_(nodeHandle) {
 
-    imagePublisher_ = imageTransport_.advertise("camera/image", 1);
+    imagePublisher_ = imageTransport_.advertise("stream/image", 1);
 
     // Parameters.
     nodeHandle.param<std::string>("stream_url", streamUrl_, "http://192.178.1.13/mjpg/video.mjpg");
-    nodeHandle.param<double>("loop_rate", loopRate_, 5);
+    nodeHandle.param<double>("loop_rate", loopRate_, 5.0);
 
     cv::VideoCapture videoCapture;
 
