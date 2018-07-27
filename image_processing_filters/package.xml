@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>image_processing_filters</name>
+    <version>0.0.1</version>
+    <description>
+        This package provide image processing filters for the image topic.
+    </description>
+    <maintainer email="ugnius@malukas.lt">Ugnius Malukas</maintainer>
+    <author email="ugnius@malukas.lt">Ugnius Malukas</author>
+    <license>BSD 3-Clause</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <depend>roscpp</depend>
+    <depend>nodelet</depend>
+    <depend>image_transport</depend>
+    <depend>cv_bridge</depend>
+
+    <export>
+        <nodelet plugin="${prefix}/nodelet_plugins.xml"/>
+    </export>
+</package>

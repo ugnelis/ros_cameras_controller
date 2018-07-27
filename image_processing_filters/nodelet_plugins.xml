@@ -1,0 +1,7 @@
+<library path="lib/libimage_processing_filters">
+    <class name="image_processing_filters/ThresholdFilterNodelet"
+           type="image_processing_filters::ThresholdFilterNodelet"
+           base_class_type="nodelet::Nodelet">
+        <description>Nodelet to perform Threshold filter on the image stream.</description>
+    </class>
+</library>
