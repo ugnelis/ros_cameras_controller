@@ -1,0 +1,17 @@
+<launch>
+    <!-- Topic of the video stream. -->
+    <arg name="image_raw" default="/video_stream_to_topic/stream/image"/>
+    <!-- Threshold value. -->
+    <arg name="threshold_value" default="100"/>
+
+    <node pkg="nodelet" type="nodelet" name="image_processing_filters_manager" args="manager" output="screen"/>
+
+    <node pkg="nodelet"
+          type="nodelet"
+          name="threshold_filter_nodelet"
+          args="load image_processing_filters/ThresholdFilterNodelet image_processing_filters_manager"
+          output="screen">
+        <remap from="image_raw" to="$(arg image_raw)"/>
+        <param name="threshold_value" value="$(arg threshold_value)"/>
+    </node>
+</launch>
