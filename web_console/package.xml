@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>web_console</name>
+    <version>0.0.1</version>
+    <description>
+        Web console for managing cameras.
+    </description>
+    <maintainer email="ugnius@malukas.lt">Ugnius Malukas</maintainer>
+    <author email="ugnius@malukas.lt">Ugnius Malukas</author>
+    <license>BSD 3-Clause</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <depend>rospy</depend>
+</package>
