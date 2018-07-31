@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+import rospy
+from std_srvs.srv import *
+from commander.srv import *
+from commander.AddCameraCommand import AddCameraCommand
+
+# Dictionary of the commands.
+commands = {
+    "add_camera": AddCameraCommand()
+}
+
+
+def commander_callback(request):
+    """
+    Create process on callback
+
+    Args:
+        request: commander.srv arguments.
+    Returns:
+        commander.srv result.
+    """
+    if request.command == "add":
+        command = commands.get('add_camera')
+        command.execute()
+        return ["Camera is added."]
+    elif request.command == "remove":
+        command = commands.get('add_camera')
+        command.stop()
+        return ["Camera is removed."]
+    return ["Unknown"]
+
+
+if __name__ == "__main__":
+    rospy.init_node('commander')
+
+    commander_service = rospy.Service(
+        'commander', commander, commander_callback)
+
+    rospy.spin()
