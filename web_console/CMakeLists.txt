@@ -8,8 +8,6 @@ find_package(catkin REQUIRED
         rospy
 )
 
-find_package(OpenCV REQUIRED)
-
 catkin_python_setup()
 catkin_package()
 
@@ -18,7 +16,7 @@ catkin_package()
 #############
 
 install(
-        FILES scripts/web_console.py
+        FILES scripts/web_console
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
         PERMISSIONS
             OWNER_READ OWNER_WRITE OWNER_EXECUTE

@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="web_console" type="web_console" name="web_console" output="screen"/>
+</launch>
