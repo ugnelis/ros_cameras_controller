@@ -10,9 +10,12 @@ class Command:
     def __init__(self):
         self.process = None
 
-    def execute(self):
+    def execute(self, argument):
         """
         Execute command.
+
+        Args:
+            argument: argument.
         """
         pass
 

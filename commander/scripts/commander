@@ -21,7 +21,7 @@ def commander_callback(request):
     """
     if request.command == "add":
         command = commands.get('add_camera')
-        command.execute()
+        command.execute(request.argument)
         return ["Camera is added."]
     elif request.command == "remove":
         command = commands.get('add_camera')
