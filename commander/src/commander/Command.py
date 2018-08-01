@@ -10,12 +10,12 @@ class Command:
     def __init__(self):
         self.process = None
 
-    def execute(self, argument):
+    def execute(self, **kwargs):
         """
         Execute command.
 
         Args:
-            argument: argument.
+            kwargs: key-worded arguments.
         """
         pass
 

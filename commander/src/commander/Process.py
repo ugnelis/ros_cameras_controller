@@ -10,17 +10,19 @@ class Process:
     """
 
     @staticmethod
-    def create(*args):
+    def create(*args, **kwargs):
         """
         Create process with given arguments.
 
         Args:
             args: argument lists.
+            kwargs: key-worded arguments.
         Returns:
             subprocess object.
                 OS process.
         """
-        process = subprocess.Popen(args)
+        env = kwargs.pop('env', {'ROS_NAMESPACE': "/"})
+        process = subprocess.Popen(args, env=dict(os.environ, **env))
         return process
 
     @staticmethod
