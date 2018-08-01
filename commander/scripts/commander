@@ -14,10 +14,8 @@ def commander_callback(request):
     """
     Create process on callback
 
-    Args:
-        request: commander.srv arguments.
-    Returns:
-        commander.srv result.
+    :param request: commander.srv arguments.
+    :return: commander.srv result.
     """
     if request.command == "add":
         command = commands.get('add_camera')

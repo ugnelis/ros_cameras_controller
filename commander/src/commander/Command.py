@@ -2,9 +2,7 @@ class Command:
     """
     Command base class.
 
-    Attributes:
-        process: subprocess object.
-            OS process.
+    :ivar process: subprocess object.
     """
 
     def __init__(self):
@@ -12,10 +10,9 @@ class Command:
 
     def execute(self, **kwargs):
         """
-        Execute command.
+        Execute the command.
 
-        Args:
-            kwargs: key-worded arguments.
+        :param kwargs: key-worded arguments.
         """
         pass
 

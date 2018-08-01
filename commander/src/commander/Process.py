@@ -14,12 +14,9 @@ class Process:
         """
         Create process with given arguments.
 
-        Args:
-            args: argument lists.
-            kwargs: key-worded arguments.
-        Returns:
-            subprocess object.
-                OS process.
+        :param args: argument list.
+        :param kwargs: key-worded arguments.
+        :return: subprocess object
         """
         env = kwargs.pop('env', {'ROS_NAMESPACE': "/"})
         process = subprocess.Popen(args, env=dict(os.environ, **env))
@@ -30,9 +27,7 @@ class Process:
         """
         Terminate process with its children.
 
-        Args:
-            process: subprocess object.
-                OS process.
+        :param process: subprocess object.
         """
         ps_command = subprocess.Popen(
             "ps -o pid --ppid %d --noheaders" % process.pid, shell=True, stdout=subprocess.PIPE)
