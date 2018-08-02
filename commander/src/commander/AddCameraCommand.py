@@ -1,5 +1,3 @@
-import os
-import rospy
 import rospkg
 from commander.Command import Command
 from commander.Process import Process
@@ -11,7 +9,7 @@ class AddCameraCommand(Command):
     """
 
     def __init__(self):
-        super(AddCameraCommand, self).__init__()
+        Command.__init__(self)
 
     def execute(self, **kwargs):
         """

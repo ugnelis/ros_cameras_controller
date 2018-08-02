@@ -1,13 +1,11 @@
 #!/usr/bin/env python
+import uuid
 import rospy
 from std_srvs.srv import *
 from commander.srv import *
 from commander.AddCameraCommand import AddCameraCommand
 
-# Dictionary of the commands.
-commands = {
-    "add_camera": AddCameraCommand()
-}
+cameras = {}
 
 
 def commander_callback(request):
@@ -17,13 +15,25 @@ def commander_callback(request):
     :param request: commander.srv arguments.
     :return: commander.srv result.
     """
-    if request.command == "add":
-        command = commands.get('add_camera')
-        command.execute(stream_url=request.argument, namespace="/123")
+    if request.command == "list":
+        result = str()
+        for key in cameras.keys():
+            result += key + '\n'
+
+        return [result]
+    elif request.command == "add":
+        key = str(uuid.uuid1()).replace("-", "")
+        cameras[key] = AddCameraCommand()
+        cameras[key].execute(stream_url=request.argument, namespace=key)
+
         return ["Camera is added."]
     elif request.command == "remove":
-        command = commands.get('add_camera')
-        command.stop()
+        key = request.argument
+
+        if not key in cameras:
+            return ["Camera with this ID does not exist."]
+
+        cameras[key].stop()
         return ["Camera is removed."]
     return ["Unknown"]
 
