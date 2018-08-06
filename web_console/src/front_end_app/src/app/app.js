@@ -8,6 +8,8 @@ import '../style/app.css';
 import routing from './app.config';
 import home from './home';
 import about from './about';
+import cameras from './cameras';
 
-angular.module('app', [uirouter, home, about])
+
+angular.module('app', [uirouter, home, about, cameras])
     .config(routing);

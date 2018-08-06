@@ -7,5 +7,6 @@ from web_console import app, static_folder
 
 @app.route('/')
 @app.route('/about')
+@app.route('/cameras')
 def home():
     return make_response(open(static_folder + '/index.html').read())

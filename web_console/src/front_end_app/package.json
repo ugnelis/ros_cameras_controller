@@ -20,7 +20,8 @@
   "dependencies": {
     "angular": "^1.7.0",
     "angular-ui-router": "^1.0.0",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "roslib": "^0.20.0"
   },
   "devDependencies": {
     "ajv": "^6.4.0",
