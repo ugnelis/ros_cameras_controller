@@ -3,12 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Angular App</title>
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <base href="/">
 </head>
 <body>
-<app></app>
+<!-- Navbar. -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
+                    ng-click="navCollapsed = !navCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Web Console</a>
+        </div>
+        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
+                <li ui-sref-active="active"><a ui-sref="about">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Content. -->
+<div class="container">
+    <ui-view></ui-view>
+</div>
+<!-- Footer. -->
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">© 2018 Web Console</p>
+    </div>
+</footer>
 </body>
 </html>

@@ -1,25 +1,13 @@
+import 'bootstrap/dist/css/bootstrap.css';
+
 import angular from 'angular';
+import uirouter from 'angular-ui-router'
 
 import '../style/app.css';
 
-let app = () => {
-    return {
-        template: require('./app.html'),
-        controller: 'AppCtrl',
-        controllerAs: 'app'
-    }
-};
+import routing from './app.config';
+import home from './home';
+import about from './about';
 
-class AppCtrl {
-    constructor() {
-        this.url = 'https://github.com/ugnelis/ros-cameras-controller';
-    }
-}
-
-const MODULE_NAME = 'app';
-
-angular.module(MODULE_NAME, [])
-    .directive('app', app)
-    .controller('AppCtrl', AppCtrl);
-
-export default MODULE_NAME;
+angular.module('app', [uirouter, home, about])
+    .config(routing);
