@@ -1,4 +1,6 @@
 <div>
     <h1 class="title">Cameras</h1>
-    <p><a href="https://github.com/ugnelis/ros-cameras-controller">Read more</a></p>
+    <div ng-repeat="cameraUrl in cameras.camerasUrlArray">
+        <mjpeg url="{{ cameraUrl }}" width="50%"></mjpeg>
+    </div>
 </div>

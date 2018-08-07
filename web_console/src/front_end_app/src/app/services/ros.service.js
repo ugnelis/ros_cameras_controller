@@ -43,6 +43,6 @@ class ROS {
     }
 }
 
-export default angular.module('ros', [])
+export default angular.module('services.ros', [])
     .service('ros', ROS)
     .name;
