@@ -1,3 +1,4 @@
+// import ros from '../services/ros.service';
 routes.$inject = ['$stateProvider'];
 
 export default function routes($stateProvider) {
@@ -6,6 +7,12 @@ export default function routes($stateProvider) {
             url: '/cameras',
             template: require('./cameras.html'),
             controller: 'CamerasController',
-            controllerAs: 'cameras'
+            controllerAs: 'cameras',
+            resolve: {
+                cameras: function () {
+                    return "123";
+                    // return ros.getCamerasList();
+                }
+            }
         });
 }

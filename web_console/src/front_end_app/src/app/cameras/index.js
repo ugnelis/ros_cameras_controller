@@ -3,9 +3,8 @@ import uirouter from 'angular-ui-router';
 
 import routing from './cameras.routes';
 import CamerasController from './cameras.controller';
-import ros from '../services/ros.service';
 
-export default angular.module('app.cameras', [uirouter, ros])
+export default angular.module('app.cameras', [uirouter])
     .config(routing)
     .controller('CamerasController', CamerasController)
     .name;

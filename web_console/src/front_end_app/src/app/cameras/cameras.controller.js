@@ -1,5 +1,5 @@
 export default class CamerasController {
-    constructor(ros) {
-        ros.printCamerasList();
+    constructor(cameras) {
+        console.log(cameras);
     }
 }

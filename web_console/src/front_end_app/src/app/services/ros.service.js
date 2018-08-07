@@ -6,36 +6,42 @@ class ROS {
         // Create a connection to the rosbridge WebSocket server.
         this.ros = new roslib.Ros();
 
-        this.ros.on('connection', function() {
+        this.ros.on('connection', function () {
             console.log('ROS connection made!');
         });
 
-        this.ros.on('error', function(error) {
+        this.ros.on('error', function (error) {
             console.log(error);
         });
 
-        this.ros.on('close', function() {
+        this.ros.on('close', function () {
             console.log('ROS connection closed.');
         });
 
         this.ros.connect('ws://localhost:9090');
 
         this.commanderClient = new roslib.Service({
-            ros : this.ros,
-            name : '/commander',
-            serviceType : 'commander'
+            ros: this.ros,
+            name: '/commander',
+            serviceType: 'commander'
         });
     }
 
-    printCamerasList() {
-        let listCamerasRequest = new roslib.ServiceRequest({
-            command : "list",
-            argument : ""
+    getCamerasList() {
+        var listCamerasRequest = new roslib.ServiceRequest({
+            command: "list",
+            argument: ""
         });
 
-        this.commanderClient.callService(listCamerasRequest, function(result) {
-            console.log(result.message);
+        var promise = new Promise((resolve, reject) => {
+            this.commanderClient.callService(listCamerasRequest, (params) => resolve(params));
         });
+
+        promise.then(params => {
+            return params.message;
+        });
+
+        return promise;
     }
 }
 
