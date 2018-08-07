@@ -10,6 +10,8 @@ import home from './home';
 import about from './about';
 import cameras from './cameras';
 
+import ros from './services/ros.service';
 
-angular.module('app', [uirouter, home, about, cameras])
+
+angular.module('app', [uirouter, home, about, cameras, ros])
     .config(routing);

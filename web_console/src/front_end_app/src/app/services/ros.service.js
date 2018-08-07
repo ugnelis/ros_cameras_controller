@@ -34,17 +34,15 @@ class ROS {
         });
 
         var promise = new Promise((resolve, reject) => {
-            this.commanderClient.callService(listCamerasRequest, (params) => resolve(params));
-        });
-
-        promise.then(params => {
-            return params.message;
+            this.commanderClient.callService(
+                listCamerasRequest,
+                (params) => resolve(JSON.parse(params.message)));
         });
 
         return promise;
     }
 }
 
-export default angular.module('services.ros', [])
+export default angular.module('ros', [])
     .service('ros', ROS)
     .name;

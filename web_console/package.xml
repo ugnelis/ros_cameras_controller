@@ -12,5 +12,4 @@
     <buildtool_depend>catkin</buildtool_depend>
 
     <depend>rospy</depend>
-    <depend>rospkg</depend>
 </package>

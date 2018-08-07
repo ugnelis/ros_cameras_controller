@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import uuid
+import json
 import rospy
 from std_srvs.srv import *
 from commander.srv import *
@@ -16,26 +17,27 @@ def commander_callback(request):
     :return: commander.srv result.
     """
     if request.command == "list":
-        result = str()
-        for key in cameras.keys():
-            result += key + '\n'
+        cameras_list = []
 
-        return [result]
+        for key in cameras.keys():
+            cameras_list.append(key)
+
+        return [json.dumps({"cameras": cameras_list})]
     elif request.command == "add":
         key = str(uuid.uuid1()).replace("-", "")
         cameras[key] = AddCameraCommand()
         cameras[key].execute(stream_url=request.argument, namespace=key)
 
-        return ["Camera is added."]
+        return [json.dumps({"message": "Camera is added."})]
     elif request.command == "remove":
         key = request.argument
 
         if not key in cameras:
-            return ["Camera with this ID does not exist."]
+            return [json.dumps({"message": "Camera with this ID does not exist."})]
 
         cameras[key].stop()
-        return ["Camera is removed."]
-    return ["Unknown"]
+        return [json.dumps({"message": "Camera is removed."})]
+    return [json.dumps({"message": "Unknown"})]
 
 
 if __name__ == "__main__":

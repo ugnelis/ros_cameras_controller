@@ -1,3 +1,9 @@
 <launch>
+    <!-- TODO(Ugnelis): add npm instal && npm run build. -->
+
+    <!-- Launch rosbridge websocket. -->
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+
+    <!-- Run web_console. -->
     <node pkg="web_console" type="web_console" name="web_console" output="screen"/>
 </launch>
