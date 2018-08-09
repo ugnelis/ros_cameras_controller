@@ -1,6 +1,6 @@
-class Command:
+class Executor:
     """
-    Command base class.
+    Executor base class.
 
     :ivar process: subprocess object.
     """
@@ -18,6 +18,6 @@ class Command:
 
     def stop(self):
         """
-        Stop command.
+        Stop executor.
         """
         pass
