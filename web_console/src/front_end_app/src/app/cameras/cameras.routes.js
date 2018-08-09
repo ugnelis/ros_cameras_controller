@@ -1,6 +1,6 @@
 routes.$inject = ['$stateProvider'];
 
-export default function routes($stateProvider, ros) {
+export default function routes($stateProvider) {
     $stateProvider
         .state('cameras', {
             url: '/cameras',

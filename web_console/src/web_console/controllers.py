@@ -8,5 +8,6 @@ from web_console import app, static_folder
 @app.route('/')
 @app.route('/about')
 @app.route('/cameras')
-def home():
+@app.route('/cameras/<camera_id>')
+def basic_pages(**kwargs):
     return make_response(open(static_folder + '/index.html').read())

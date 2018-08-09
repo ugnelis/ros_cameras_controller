@@ -28,14 +28,29 @@ class ROS {
     }
 
     getCamerasList() {
-        var listCamerasRequest = new roslib.ServiceRequest({
+        let listCamerasRequest = new roslib.ServiceRequest({
             command: "list",
             argument: ""
         });
 
-        var promise = new Promise((resolve, reject) => {
+        let promise = new Promise((resolve, reject) => {
             this.commanderClient.callService(
                 listCamerasRequest,
+                (params) => resolve(JSON.parse(params.message)));
+        });
+
+        return promise;
+    }
+
+    getCamera(id) {
+        let getCameraRequest = new roslib.ServiceRequest({
+            command: "get",
+            argument: id
+        });
+
+        let promise = new Promise((resolve, reject) => {
+            this.commanderClient.callService(
+                getCameraRequest,
                 (params) => resolve(JSON.parse(params.message)));
         });
 

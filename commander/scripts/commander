@@ -29,23 +29,35 @@ def commander_callback(request):
 
         return [json.dumps({"cameras": cameras_list})]
 
+    elif request.command == "get":
+        key = request.argument
+
+        if not key in cameras:
+            return [json.dumps({"message": "Camera with this ID does not exist.", "code": 404})]
+
+        camera = Camera()
+        camera.set_id(key)
+        camera.set_topics_list(rospy.get_published_topics(key))
+
+        return [json.dumps(camera.to_dict())]
+
     elif request.command == "add":
         key = str(uuid.uuid1()).replace("-", "")
         cameras[key] = AddCameraCommand()
         cameras[key].execute(stream_url=request.argument, namespace=key)
 
-        return [json.dumps({"message": "Camera is added."})]
+        return [json.dumps({"message": "Camera is added.", "code": 200})]
 
     elif request.command == "remove":
         key = request.argument
 
         if not key in cameras:
-            return [json.dumps({"message": "Camera with this ID does not exist."})]
+            return [json.dumps({"message": "Camera with this ID does not exist.", "code:": 404})]
 
         cameras[key].stop()
-        return [json.dumps({"message": "Camera is removed."})]
+        return [json.dumps({"message": "Camera is removed.", "code": 200})]
 
-    return [json.dumps({"message": "Unknown"})]
+    return [json.dumps({"message": "Unknown", "code": 404})]
 
 
 if __name__ == "__main__":
