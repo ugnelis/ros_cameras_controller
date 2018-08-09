@@ -1,15 +1,15 @@
 import rospkg
-from commander.Command import Command
-from commander.Process import Process
+from commander.executor.Executor import Executor
+from commander.utils.Process import Process
 
 
-class AddCameraCommand(Command):
+class CameraExecutor(Executor):
     """
-    Command class for adding camera.
+    Executor class for adding and removing camera.
     """
 
     def __init__(self):
-        Command.__init__(self)
+        Executor.__init__(self)
 
     def execute(self, **kwargs):
         """
@@ -35,7 +35,7 @@ class AddCameraCommand(Command):
 
     def stop(self):
         """
-        Stop command.
+        Stop executor.
         """
         if self.process is not None:
             self.process = Process.terminate(self.process)
