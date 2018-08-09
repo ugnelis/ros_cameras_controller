@@ -1,0 +1,46 @@
+{
+  "name": "web_console",
+  "version": "0.0.1",
+  "description": "Web console for managing cameras",
+  "scripts": {
+    "build": "rimraf dist && webpack --bail --progress --profile",
+    "server": "webpack-dev-server --history-api-fallback --inline --progress",
+    "start": "npm run server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ugnelis/ros-cameras-controller.git"
+  },
+  "author": "Ugnius Malukas",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/ugnelis/ros-cameras-controller/issues"
+  },
+  "homepage": "https://github.com/ugnelis/ros-cameras-controller",
+  "dependencies": {
+    "angular": "^1.7.0",
+    "angular-ui-router": "^1.0.0",
+    "bootstrap": "^3.3.7",
+    "roslib": "^0.20.0"
+  },
+  "devDependencies": {
+    "ajv": "^6.4.0",
+    "autoprefixer": "^8.4.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.1.18",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "2.0.0-beta.5",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "node-libs-browser": "^2.1.0",
+    "null-loader": "^0.1.1",
+    "postcss-loader": "^2.1.5",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.1",
+    "style-loader": "^0.21.0",
+    "webpack": "^2.7.0",
+    "webpack-dev-server": "^2.11.2"
+  }
+}

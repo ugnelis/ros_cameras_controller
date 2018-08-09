@@ -1,0 +1,17 @@
+<launch>
+    <!-- TODO(Ugnelis): add npm instal && npm run build. -->
+
+    <!-- web_video_server port. -->
+    <arg name="port" default="8888"/>
+
+    <!-- Launch web_video_server. -->
+    <node pkg="web_video_server" type="web_video_server" name="web_video_server" output="screen">
+        <param name="port" value="$(arg port)"/>
+    </node>
+
+    <!-- Launch rosbridge websocket. -->
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+
+    <!-- Run web_console. -->
+    <node pkg="web_console" type="web_console" name="web_console" output="screen"/>
+</launch>

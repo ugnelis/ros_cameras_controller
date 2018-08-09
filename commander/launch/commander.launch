@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="commander" type="commander" name="commander" output="screen"/>
+</launch>
