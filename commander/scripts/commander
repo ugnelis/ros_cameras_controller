@@ -4,6 +4,7 @@ import json
 import rospy
 from std_srvs.srv import *
 from commander.srv import *
+from commander.Camera import Camera
 from commander.AddCameraCommand import AddCameraCommand
 
 cameras = {}
@@ -20,15 +21,21 @@ def commander_callback(request):
         cameras_list = []
 
         for key in cameras.keys():
-            cameras_list.append(key)
+            camera = Camera()
+            camera.set_id(key)
+            camera.set_topics_list(rospy.get_published_topics(key))
+            # Add to the cameras list.
+            cameras_list.append(camera.to_dict())
 
         return [json.dumps({"cameras": cameras_list})]
+
     elif request.command == "add":
         key = str(uuid.uuid1()).replace("-", "")
         cameras[key] = AddCameraCommand()
         cameras[key].execute(stream_url=request.argument, namespace=key)
 
         return [json.dumps({"message": "Camera is added."})]
+
     elif request.command == "remove":
         key = request.argument
 
@@ -37,6 +44,7 @@ def commander_callback(request):
 
         cameras[key].stop()
         return [json.dumps({"message": "Camera is removed."})]
+
     return [json.dumps({"message": "Unknown"})]
 
 

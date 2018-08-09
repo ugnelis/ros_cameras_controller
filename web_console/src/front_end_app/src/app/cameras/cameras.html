@@ -1,6 +1,9 @@
 <div>
     <h1 class="title">Cameras</h1>
-    <div ng-repeat="cameraUrl in cameras.camerasUrlArray">
-        <mjpeg url="{{ cameraUrl }}" width="50%"></mjpeg>
+    <div class="row">
+        <div class="col-md-4" ng-repeat="camera in cameras.camerasArray">
+            <p><strong>id:</strong> {{ camera.id }}</p>
+            <mjpeg url="{{ camera.url }}" width="100%"></mjpeg>
+        </div>
     </div>
 </div>

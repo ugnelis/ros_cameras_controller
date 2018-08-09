@@ -1,11 +1,13 @@
 export default class CamerasController {
     constructor(cameras) {
-        let camerasIdArray = cameras.cameras;
-        this.camerasUrlArray = [];
+        console.log(cameras);
+        this.camerasArray = cameras.cameras;
 
-        for (const cameraId of camerasIdArray) {
-            let cameraUrl = "http://localhost:8888/stream?topic=/" + cameraId + "/video_stream_to_topic/stream/image";
-            this.camerasUrlArray.push(cameraUrl);
+        for (let camera of this.camerasArray) {
+            let imageTopicIndex = camera.topics_list.findIndex(c => c[1] == "sensor_msgs/Image");
+
+            let cameraUrl = "http://localhost:8888/stream?topic=" + camera.topics_list[imageTopicIndex][0];
+            camera.url = cameraUrl;
         }
     }
 }
