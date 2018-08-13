@@ -1,6 +1,21 @@
 <div>
     <h1 class="title">Cameras</h1>
     <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <input type="url" class="form-control" id="addUrlInput" placeholder="http://">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus"
+                                                                            aria-hidden="true"></span> Add Camera
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-4" ng-repeat="camera in cameras.camerasArray">
             <p><strong>id:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a></p>
             <mjpeg url="{{ camera.url }}" width="100%"></mjpeg>
