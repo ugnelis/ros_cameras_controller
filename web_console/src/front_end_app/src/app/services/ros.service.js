@@ -56,6 +56,21 @@ class ROS {
 
         return promise;
     }
+
+    addCamera(camera) {
+        let addCameraRequest = new roslib.ServiceRequest({
+            command: "add",
+            argument: camera.url
+        });
+
+        let promise = new Promise((resolve, reject) => {
+            this.commanderClient.callService(
+                addCameraRequest,
+                (params) => resolve(JSON.parse(params.message)));
+        });
+
+        return promise;
+    }
 }
 
 export default angular.module('services.ros', [])

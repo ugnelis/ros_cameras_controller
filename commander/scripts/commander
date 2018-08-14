@@ -58,7 +58,11 @@ def command_add_camera(argument):
     cameras[key] = CameraExecutor()
     cameras[key].execute(stream_url=argument, namespace=key)
 
-    return [json.dumps({"message": "Camera is added.", "code": 200})]
+    camera = Camera()
+    camera.set_id(key)
+    camera.set_topics_list(rospy.get_published_topics(key))
+
+    return [json.dumps({"message": "Camera is added.", "code": 200, "camera": camera.to_dict()})]
 
 
 def command_remove_camera(argument):
@@ -94,7 +98,7 @@ def commander_callback(request):
     :return: commander.srv result.
     """
     if request.command == "list":
-        return command_get_cameras_list();
+        return command_get_cameras_list()
 
     elif request.command == "get":
         return command_get_camera(request.argument)

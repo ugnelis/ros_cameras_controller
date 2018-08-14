@@ -1,4 +1,5 @@
 import rospkg
+import time
 from commander.executor.Executor import Executor
 from commander.utils.Process import Process
 
@@ -32,6 +33,9 @@ class CameraExecutor(Executor):
 
         # Create and launch process.
         self.process = Process.create(*args_list, env=env)
+
+        # Wait for 4 seconds.
+        time.sleep(4)
 
     def stop(self):
         """
