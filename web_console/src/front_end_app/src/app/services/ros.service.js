@@ -71,6 +71,21 @@ class ROS {
 
         return promise;
     }
+
+    removeCamera(camera) {
+        let addCameraRequest = new roslib.ServiceRequest({
+            command: "remove",
+            argument: camera.id
+        });
+
+        let promise = new Promise((resolve, reject) => {
+            this.commanderClient.callService(
+                addCameraRequest,
+                (params) => resolve(JSON.parse(params.message)));
+        });
+
+        return promise;
+    }
 }
 
 export default angular.module('services.ros', [])

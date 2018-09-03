@@ -78,6 +78,7 @@ def command_remove_camera(argument):
         return [json.dumps({"message": "Camera with this ID does not exist.", "code:": 404})]
 
     cameras[key].stop()
+    del cameras[key]
     return [json.dumps({"message": "Camera is removed.", "code": 200})]
 
 

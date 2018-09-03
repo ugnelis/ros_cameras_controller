@@ -16,14 +16,38 @@ export default class CamerasController {
         console.log(camera);
         let promise = this.rosService.addCamera(camera);
 
+        let self = this;
         promise.then((params) => {
+            alert(params.message);
             // TODO(Ugnelis): fix here. It doesn't update.
             console.log(params);
             let camera = params.camera;
             camera.url = CamerasController.makeCameraUrl(camera);
             self.camerasArray.push(camera);
         });
+    }
 
+    remove(camera) {
+        console.log(this.camerasArray);
+
+        if (!Array.isArray(this.camerasArray) || !this.camerasArray.length) {
+            return;
+        }
+
+        this.camerasArray.pop();
+        console.log(this.camerasArray);
+
+        // let promise = this.rosService.removeCamera(camera);
+        //
+        // let self = this;
+        // promise.then((params) => {
+        //     alert(params.message);
+        //     let camera = params.camera;
+        //     camera.url = CamerasController.makeCameraUrl(camera);
+        //     self.camerasArray.push(camera);
+        //
+        //     self
+        // });
     }
 
     static makeCameraUrl(camera) {
