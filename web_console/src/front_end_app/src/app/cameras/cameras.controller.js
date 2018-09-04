@@ -1,53 +1,42 @@
 export default class CamerasController {
-    constructor(cameras, rosService) {
+    constructor(cameras, rosService, $q) {
         console.log(cameras);
         this.camerasArray = cameras.cameras;
         this.rosService = rosService;
+        this.$q = $q;
 
         for (let camera of this.camerasArray) {
             camera.url = CamerasController.makeCameraUrl(camera);
         }
-
-        console.log(this);
-        this.add = this.add.bind(this);
     }
 
     add(camera) {
-        console.log(camera);
         let promise = this.rosService.addCamera(camera);
 
-        let self = this;
-        promise.then((params) => {
-            alert(params.message);
-            // TODO(Ugnelis): fix here. It doesn't update.
-            console.log(params);
-            let camera = params.camera;
+        this.$q.when(promise).then((result) => {
+            alert(result.message);
+
+            let camera = result.camera;
             camera.url = CamerasController.makeCameraUrl(camera);
-            self.camerasArray.push(camera);
+            this.camerasArray.push(camera);
         });
     }
 
     remove(camera) {
-        console.log(this.camerasArray);
-
         if (!Array.isArray(this.camerasArray) || !this.camerasArray.length) {
             return;
         }
 
-        this.camerasArray.pop();
-        console.log(this.camerasArray);
+        let promise = this.rosService.removeCamera(camera);
 
-        // let promise = this.rosService.removeCamera(camera);
-        //
-        // let self = this;
-        // promise.then((params) => {
-        //     alert(params.message);
-        //     let camera = params.camera;
-        //     camera.url = CamerasController.makeCameraUrl(camera);
-        //     self.camerasArray.push(camera);
-        //
-        //     self
-        // });
+        this.$q.when(promise).then((result) => {
+            alert(result.message);
+
+            let index = this.camerasArray.indexOf(camera);
+            if (index !== -1) {
+                this.camerasArray.splice(index, 1);
+            }
+        });
     }
 
     static makeCameraUrl(camera) {
@@ -60,4 +49,4 @@ export default class CamerasController {
     }
 }
 
-CamerasController.$inject = ['cameras', 'ros'];
+CamerasController.$inject = ['cameras', 'ros', '$q'];
