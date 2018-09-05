@@ -73,14 +73,14 @@ class ROS {
     }
 
     removeCamera(camera) {
-        let addCameraRequest = new roslib.ServiceRequest({
+        let removeCameraRequest = new roslib.ServiceRequest({
             command: "remove",
             argument: camera.id
         });
 
         let promise = new Promise((resolve, reject) => {
             this.commanderClient.callService(
-                addCameraRequest,
+                removeCameraRequest,
                 (params) => resolve(JSON.parse(params.message)));
         });
 

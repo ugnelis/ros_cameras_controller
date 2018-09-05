@@ -1,6 +1,5 @@
 export default class CamerasController {
     constructor(cameras, rosService, $q) {
-        console.log(cameras);
         this.camerasArray = cameras.cameras;
         this.rosService = rosService;
         this.$q = $q;

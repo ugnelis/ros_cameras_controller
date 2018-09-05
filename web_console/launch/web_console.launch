@@ -1,6 +1,4 @@
 <launch>
-    <!-- TODO(Ugnelis): add npm instal && npm run build. -->
-
     <!-- web_video_server port. -->
     <arg name="port" default="8888"/>
 
@@ -13,5 +11,6 @@
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
 
     <!-- Run web_console. -->
+    <node pkg="web_console" type="front_end_setup.sh" name="front_end_setup" cwd="node" args="PRODUCTION false" output="screen"/>
     <node pkg="web_console" type="web_console" name="web_console" output="screen"/>
 </launch>
