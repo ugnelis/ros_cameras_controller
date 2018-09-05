@@ -32,7 +32,7 @@ def command_get_camera(argument):
     """
     Get camera command.
 
-    :param argument: Argumant of the command.
+    :param argument: Argument of the command.
     :return: Response.
     """
     key = argument
@@ -51,7 +51,7 @@ def command_add_camera(argument):
     """
     Add camera command.
 
-    :param argument: Argumant of the command.
+    :param argument: Argument of the command.
     :return: Response.
     """
     key = str(uuid.uuid1()).replace("-", "")
@@ -69,7 +69,7 @@ def command_remove_camera(argument):
     """
     Remove camera command.
 
-    :param argument: Argumant of the command.
+    :param argument: Argument of the command.
     :return: Response.
     """
     key = argument

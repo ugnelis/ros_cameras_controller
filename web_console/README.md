@@ -50,7 +50,7 @@ Run the main node with
 
 ## Launch files
 
-* **web_console.launch:** video streamer to image topic node is launched. 
+* **web_console.launch:** *web_console*, *web_video_server* nodes and `rosbridge_websocket.launch` are launched.
     
     Arguments
 
