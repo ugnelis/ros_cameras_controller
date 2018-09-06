@@ -1,4 +1,6 @@
+import rospy
 import rospkg
+import time
 from commander.executor.Executor import Executor
 from commander.utils.Process import Process
 
@@ -32,6 +34,10 @@ class CameraExecutor(Executor):
 
         # Create and launch process.
         self.process = Process.create(*args_list, env=env)
+
+        # Be sure that topics are running.
+        while not rospy.get_published_topics(namespace):
+            time.sleep(0.5)
 
     def stop(self):
         """
