@@ -21,7 +21,7 @@ The commander package has been tested under [ROS] Kinetic and Ubuntu 16.04.
 
 #### Dependencies
 
-- [Robot Operating System (ROS)](http://wiki.ros.org) (Middleware for Robotics),
+- [Robot Operating System (ROS)] (Middleware for Robotics),
 
 
 #### Building
@@ -29,7 +29,7 @@ The commander package has been tested under [ROS] Kinetic and Ubuntu 16.04.
 To build from source, clone the latest version from this repository into your catkin workspace and compile the package using
 
 	cd catkin_workspace/src
-	git clone https://github.com/ugnelis/ros-cameras-controller.git
+	git clone https://github.com/ugnelis/ros_cameras_controller.git
 	cd ../
 	catkin_make
 
@@ -83,5 +83,5 @@ Handles requests got by ROS service and launches needed launch files.
 Please report bugs and request features using the [Issue Tracker](https://github.com/ugnelis/ros-cameras-controller/issues).
 
 
-[ROS]: http://www.ros.org
+[Robot Operating System (ROS)]: http://www.ros.org
 
