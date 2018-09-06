@@ -21,7 +21,7 @@ The image_processing_filters package has been tested under [ROS] Kinetic and Ubu
 
 #### Dependencies
 
-- [Robot Operating System (ROS)](http://wiki.ros.org) (Middleware for Robotics),
+- [Robot Operating System (ROS)] (Middleware for Robotics),
 - [OpenCV] (Computer Vision)
 
 
@@ -30,7 +30,7 @@ The image_processing_filters package has been tested under [ROS] Kinetic and Ubu
 To build from source, clone the latest version from this repository into your catkin workspace and compile the package using
 
 	cd catkin_workspace/src
-	git clone https://github.com/ugnelis/ros-cameras-controller.git
+	git clone https://github.com/ugnelis/ros_cameras_controller.git
 	cd ../
 	catkin_make
 
@@ -85,6 +85,6 @@ Applies threshold filter to video stream and makes it as a ROS image topic.
 Please report bugs and request features using the [Issue Tracker](https://github.com/ugnelis/ros-cameras-controller/issues).
 
 
-[ROS]: http://www.ros.org
+[Robot Operating System (ROS)]: http://www.ros.org
 [OpenCV]: https://opencv.org
 [sensor_msgs/Image]: http://docs.ros.org/api/sensor_msgs/html/msg/Image.html

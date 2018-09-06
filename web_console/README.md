@@ -25,9 +25,9 @@ The web_console package has been tested under [ROS] Kinetic and Ubuntu 16.04.
 
 #### Dependencies
 
-- [Robot Operating System (ROS)](http://wiki.ros.org) (Middleware for Robotics),
-- [Flask] (Back-End App)
-- [AngularJS] (Front-End App)
+- [Robot Operating System (ROS)] (Middleware for Robotics),
+- [Flask] (Back-End App),
+- [AngularJS] (Front-End App),
 - [npm] (Front-End Package Manager)
 
 
@@ -36,7 +36,7 @@ The web_console package has been tested under [ROS] Kinetic and Ubuntu 16.04.
 To build from source, clone the latest version from this repository into your catkin workspace and compile the package using
 
 	cd catkin_workspace/src
-	git clone https://github.com/ugnelis/ros-cameras-controller.git
+	git clone https://github.com/ugnelis/ros_cameras_controller.git
 	cd ../
 	catkin_make
 
@@ -69,7 +69,7 @@ Converts video stream and makes it as a ROS image topic.
 Please report bugs and request features using the [Issue Tracker](https://github.com/ugnelis/ros-cameras-controller/issues).
 
 
-[ROS]: http://www.ros.org
+[Robot Operating System (ROS)]: http://www.ros.org
 [Flask]: http://flask.pocoo.org
 [npm]: https://www.npmjs.com
 [AngularJS]: https://angularjs.org
