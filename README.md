@@ -2,7 +2,7 @@
 
 ## Overview
 
-*ros_cameras_controller* uses already stream videos and helps them manages.
+*ros_cameras_controller* uses already stream videos and helps them manage.
 
 The project consists of these ROS packages (more details in README.md files of each package):
 * [commander](commander) - handles requests made by other packages.
