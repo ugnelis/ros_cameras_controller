@@ -8,8 +8,8 @@ export default function routes($stateProvider) {
             controller: 'CamerasController',
             controllerAs: 'cameras',
             resolve: {
-                cameras: function (ros) {
-                    return ros.getCamerasList();
+                cameras: function (CamerasService) {
+                    return CamerasService.getCamerasList();
                 }
             }
         });

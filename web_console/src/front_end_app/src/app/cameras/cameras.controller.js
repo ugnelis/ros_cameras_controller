@@ -48,4 +48,4 @@ export default class CamerasController {
     }
 }
 
-CamerasController.$inject = ['cameras', 'ros', '$q'];
+CamerasController.$inject = ['cameras', 'CamerasService', '$q'];

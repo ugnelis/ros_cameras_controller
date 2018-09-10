@@ -11,8 +11,6 @@ import about from './about';
 import cameras from './cameras';
 import camera from './cameras/camera';
 
-import ros from './services/ros.service';
 
-
-angular.module('app', [uirouter, home, about, cameras, camera, ros])
+angular.module('app', [uirouter, home, about, cameras, camera])
     .config(routing);
