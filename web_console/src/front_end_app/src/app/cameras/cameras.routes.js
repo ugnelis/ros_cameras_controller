@@ -1,5 +1,3 @@
-routes.$inject = ['$stateProvider'];
-
 export default function routes($stateProvider) {
     $stateProvider
         .state('cameras', {
@@ -8,9 +6,11 @@ export default function routes($stateProvider) {
             controller: 'CamerasController',
             controllerAs: 'cameras',
             resolve: {
-                cameras: function (ros) {
-                    return ros.getCamerasList();
+                cameras: function (CamerasService) {
+                    return CamerasService.getCamerasList();
                 }
             }
         });
 }
+
+routes.$inject = ['$stateProvider'];

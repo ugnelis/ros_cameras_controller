@@ -8,11 +8,11 @@ export default function routes($stateProvider) {
             controller: 'CameraController',
             controllerAs: 'camera',
             resolve: {
-                camera: function ($state, $stateParams, ros) {
-                    let result = ros.getCamera($stateParams.id);
+                camera: function ($state, $stateParams, CamerasService) {
+                    let result = CamerasService.getCamera($stateParams.id);
                     result.then(function (val) {
                         if ('code' in val) {
-                            if (val.code != 200) {
+                            if (val.code !== 200) {
                                 $state.go('cameras');
                             }
                         }

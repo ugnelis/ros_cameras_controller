@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import angular from 'angular';
 import uirouter from 'angular-ui-router'
+import uibootstrap from 'angular-ui-bootstrap'
 
 import '../style/app.css';
 
@@ -11,8 +12,6 @@ import about from './about';
 import cameras from './cameras';
 import camera from './cameras/camera';
 
-import ros from './services/ros.service';
 
-
-angular.module('app', [uirouter, home, about, cameras, camera, ros])
+angular.module('app', [uirouter, uibootstrap, home, about, cameras, camera])
     .config(routing);

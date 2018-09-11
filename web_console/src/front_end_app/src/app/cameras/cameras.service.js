@@ -1,7 +1,6 @@
-import angular from 'angular';
 import roslib from 'roslib';
 
-class ROS {
+export default class CamerasService {
     constructor() {
         // Create a connection to the rosbridge WebSocket server.
         this.ros = new roslib.Ros();
@@ -87,7 +86,3 @@ class ROS {
         return promise;
     }
 }
-
-export default angular.module('services.ros', [])
-    .service('ros', ROS)
-    .name;
