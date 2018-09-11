@@ -16,7 +16,10 @@
     </div>
 
     <div class="row">
-        <!--<div class="col-md-4" ng-repeat="camera in cameras.camerasArray">-->
+        <div alertbox></div>
+    </div>
+
+    <div class="row">
         <div class="col-md-4" ng-repeat="camera in cameras.camerasArray track by camera.id">
             <p><strong>id:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a></p>
             <mjpeg url="{{ camera.url }}" width="100%"></mjpeg>

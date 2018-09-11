@@ -1,5 +1,3 @@
-routes.$inject = ['$stateProvider'];
-
 export default function routes($stateProvider) {
     $stateProvider
         .state('cameras', {
@@ -14,3 +12,5 @@ export default function routes($stateProvider) {
             }
         });
 }
+
+routes.$inject = ['$stateProvider'];

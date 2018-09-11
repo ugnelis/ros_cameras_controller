@@ -1,7 +1,8 @@
 export default class CamerasController {
-    constructor(cameras, rosService, $q) {
+    constructor(cameras, camerasService, alertService, $q) {
         this.camerasArray = cameras.cameras;
-        this.rosService = rosService;
+        this.rosService = camerasService;
+        this.alertService = alertService;
         this.$q = $q;
 
         for (let camera of this.camerasArray) {
@@ -13,8 +14,8 @@ export default class CamerasController {
         let promise = this.rosService.addCamera(camera);
 
         this.$q.when(promise).then((result) => {
-            alert(result.message);
-
+            this.alertService.add("success", result.message);
+            
             let camera = result.camera;
             camera.url = CamerasController.makeCameraUrl(camera);
             this.camerasArray.push(camera);
@@ -29,7 +30,7 @@ export default class CamerasController {
         let promise = this.rosService.removeCamera(camera);
 
         this.$q.when(promise).then((result) => {
-            alert(result.message);
+            this.alertService.add("success", result.message);
 
             let index = this.camerasArray.indexOf(camera);
             if (index !== -1) {
@@ -40,7 +41,7 @@ export default class CamerasController {
 
     static makeCameraUrl(camera) {
         if (Array.isArray(camera.topics_list) && camera.topics_list.length) {
-            let imageTopicIndex = camera.topics_list.findIndex(c => c[1] == "sensor_msgs/Image");
+            let imageTopicIndex = camera.topics_list.findIndex(c => c[1] === "sensor_msgs/Image");
 
             return "http://localhost:8888/stream?topic=" + camera.topics_list[imageTopicIndex][0];
         }
@@ -48,4 +49,4 @@ export default class CamerasController {
     }
 }
 
-CamerasController.$inject = ['cameras', 'CamerasService', '$q'];
+CamerasController.$inject = ['cameras', 'CamerasService', 'AlertService', '$q'];
