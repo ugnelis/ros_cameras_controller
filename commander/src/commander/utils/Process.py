@@ -37,3 +37,14 @@ class Process:
         for pid_string in ps_comand_output.split("\n")[:-1]:
             os.kill(int(pid_string), signal.SIGINT)
         process.terminate()
+
+    @staticmethod
+    def is_running(process):
+        """
+        Check if process is running.
+
+        :param process: subprocess object.
+        :return: True if it's running, False if not.
+        """
+        poll = process.poll()
+        return poll is None
