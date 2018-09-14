@@ -41,10 +41,6 @@ class CameraExecutor(Executor):
         while not rospy.get_published_topics(namespace):
             time.sleep(0.5)
 
-        # TODO(Ugnelis): insure that video stream successfully is running.
-        if not Process.is_running(self.process):
-            self.stop()
-
     def stop(self):
         """
         Stop executors.
