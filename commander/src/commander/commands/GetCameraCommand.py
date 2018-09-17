@@ -27,8 +27,4 @@ class GetCameraCommand(Command):
         if not id in cameras:
             return [json.dumps({"message": "Camera with this ID does not exist.", "code": 404})]
 
-        camera = Camera()
-        camera.set_id(id)
-        camera.set_topics_list(rospy.get_published_topics(id))
-
-        return [json.dumps(camera.to_dict())]
+        return [json.dumps(cameras[id].to_dict())]

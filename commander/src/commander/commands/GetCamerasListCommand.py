@@ -25,11 +25,7 @@ class GetCamerasListCommand(Command):
         cameras_list = []
 
         for key in cameras.keys():
-            camera = Camera()
-            camera.set_id(key)
-            camera.set_topics_list(rospy.get_published_topics(key))
-
             # Add to the cameras list.
-            cameras_list.append(camera.to_dict())
+            cameras_list.append(cameras[key].to_dict())
 
-        return [json.dumps({"cameras": cameras_list})]
+        return [json.dumps({"cameras": cameras_list, "code": 200})]

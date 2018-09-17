@@ -4,7 +4,7 @@ export default class CameraController {
 
         let imageTopicIndex = camera.topics_list.findIndex(c => c[1] === "sensor_msgs/Image");
 
-        this.camera.url = "http://localhost:8888/stream?topic=" + camera.topics_list[imageTopicIndex][0];
+        this.camera.localUrl = "http://localhost:8888/stream?topic=" + camera.topics_list[imageTopicIndex][0];
         console.log(camera);
     }
 }

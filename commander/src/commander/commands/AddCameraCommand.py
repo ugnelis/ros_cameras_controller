@@ -33,10 +33,11 @@ class AddCameraCommand(Command):
         if not camera_executor.is_running():
             return [json.dumps({"message": "Bad URL of the video stream.", "code": 422})]
 
-        cameras[id] = camera_executor
-
         camera = Camera()
         camera.set_id(id)
-        camera.set_topics_list(rospy.get_published_topics(id))
+        camera.set_url(stream_url)
+        camera.set_executor(camera_executor)
+
+        cameras[id] = camera
 
         return [json.dumps({"message": "Camera is added.", "code": 200, "camera": camera.to_dict()})]

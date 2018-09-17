@@ -6,7 +6,6 @@ export default class CamerasController {
         this.$q = $q;
 
         for (let camera of this.camerasArray) {
-            console.log(camera);
             camera.localUrl = CamerasController.makeCameraUrl(camera);
         }
     }
