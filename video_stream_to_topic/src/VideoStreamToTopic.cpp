@@ -16,17 +16,17 @@ VideoStreamToTopic::VideoStreamToTopic(ros::NodeHandle &nodeHandle)
 
     videoCapture.open(streamUrl_);
 
-    if (!videoCapture.isOpened()) {
-        ROS_ERROR("The stream is not opened.");
-        ros::requestShutdown();
-    }
-
     cv::Mat frame;
     sensor_msgs::ImagePtr messageImagePtr;
 
     ros::Rate loopRate(loopRate_);
 
     while (nodeHandle.ok()) {
+
+        if (!videoCapture.isOpened()) {
+            ROS_WARN("The stream is not opened.");
+        }
+
         videoCapture >> frame;
 
         // Check if grabbed frame is actually full with some content.
