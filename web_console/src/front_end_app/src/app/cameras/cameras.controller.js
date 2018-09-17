@@ -1,23 +1,24 @@
 export default class CamerasController {
     constructor(cameras, camerasService, alertService, $q) {
         this.camerasArray = cameras.cameras;
-        this.rosService = camerasService;
+        this.camerasService = camerasService;
         this.alertService = alertService;
         this.$q = $q;
 
         for (let camera of this.camerasArray) {
-            camera.url = CamerasController.makeCameraUrl(camera);
+            console.log(camera);
+            camera.localUrl = CamerasController.makeCameraUrl(camera);
         }
     }
 
     add(camera) {
-        let promise = this.rosService.addCamera(camera);
+        let promise = this.camerasService.addCamera(camera);
 
         this.$q.when(promise).then((result) => {
             this.alertService.add("success", result.message);
             
             let camera = result.camera;
-            camera.url = CamerasController.makeCameraUrl(camera);
+            camera.localUrl = CamerasController.makeCameraUrl(camera);
             this.camerasArray.push(camera);
         });
     }
@@ -27,7 +28,7 @@ export default class CamerasController {
             return;
         }
 
-        let promise = this.rosService.removeCamera(camera);
+        let promise = this.camerasService.removeCamera(camera);
 
         this.$q.when(promise).then((result) => {
             this.alertService.add("success", result.message);

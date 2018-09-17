@@ -9,7 +9,6 @@ from commander.commands.GetCameraCommand import GetCameraCommand
 from commander.commands.GetCamerasListCommand import GetCamerasListCommand
 from commander.commands.UnknownCommand import UnknownCommand
 from commander.commands.RemoveCameraCommand import RemoveCameraCommand
-from commander.commands.UpdateCamerasCommand import UpdateCamerasCommand
 
 cameras = {}
 lock = threading.Lock()
@@ -22,8 +21,6 @@ def commander_callback(request):
     :param request: commander.srv arguments.
     :return: commander.srv result.
     """
-    response = ""
-
     with lock:
         if request.command == "camera.add":
             command = AddCameraCommand()
@@ -48,28 +45,10 @@ def commander_callback(request):
     return response
 
 
-def check_cameras():
-    """
-    Check cameras if they are running,
-    otherwise remove not running ones.
-    """
-    while not rospy.is_shutdown():
-        with lock:
-            command = UpdateCamerasCommand()
-            command.execute(cameras=cameras)
-
-        time.sleep(1)
-
-
 if __name__ == "__main__":
     rospy.init_node('commander')
 
     commander_service = rospy.Service(
         'commander', commander, commander_callback)
-
-    # Check if cameras are alive.
-    check_thread = threading.Thread(target=check_cameras)
-    check_thread.daemon = True
-    check_thread.start()
 
     rospy.spin()

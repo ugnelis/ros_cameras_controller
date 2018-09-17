@@ -28,7 +28,7 @@ export default class CamerasService {
 
     getCamerasList() {
         let listCamerasRequest = new roslib.ServiceRequest({
-            command: "list",
+            command: "camera.list",
             argument: ""
         });
 
@@ -43,7 +43,7 @@ export default class CamerasService {
 
     getCamera(id) {
         let getCameraRequest = new roslib.ServiceRequest({
-            command: "get",
+            command: "camera.get",
             argument: id
         });
 
@@ -58,7 +58,7 @@ export default class CamerasService {
 
     addCamera(camera) {
         let addCameraRequest = new roslib.ServiceRequest({
-            command: "add",
+            command: "camera.add",
             argument: camera.url
         });
 
@@ -73,7 +73,7 @@ export default class CamerasService {
 
     removeCamera(camera) {
         let removeCameraRequest = new roslib.ServiceRequest({
-            command: "remove",
+            command: "camera.remove",
             argument: camera.id
         });
 
