@@ -1,94 +1,17 @@
 #!/usr/bin/env python
-import uuid
-import json
+import time
+import threading
 import rospy
 from std_srvs.srv import *
 from commander.srv import *
-from commander.data_classes.Camera import Camera
-from commander.executor.CameraExecutor import CameraExecutor
+from commander.commands.AddCameraCommand import AddCameraCommand
+from commander.commands.GetCameraCommand import GetCameraCommand
+from commander.commands.GetCamerasListCommand import GetCamerasListCommand
+from commander.commands.UnknownCommand import UnknownCommand
+from commander.commands.RemoveCameraCommand import RemoveCameraCommand
 
 cameras = {}
-
-
-def command_get_cameras_list():
-    """
-    Get cameras list command.
-
-    :return: Response.
-    """
-    cameras_list = []
-
-    for key in cameras.keys():
-        camera = Camera()
-        camera.set_id(key)
-        camera.set_topics_list(rospy.get_published_topics(key))
-        # Add to the cameras list.
-        cameras_list.append(camera.to_dict())
-
-    return [json.dumps({"cameras": cameras_list})]
-
-
-def command_get_camera(argument):
-    """
-    Get camera command.
-
-    :param argument: Argument of the command.
-    :return: Response.
-    """
-    key = argument
-
-    if not key in cameras:
-        return [json.dumps({"message": "Camera with this ID does not exist.", "code": 404})]
-
-    camera = Camera()
-    camera.set_id(key)
-    camera.set_topics_list(rospy.get_published_topics(key))
-
-    return [json.dumps(camera.to_dict())]
-
-
-def command_add_camera(argument):
-    """
-    Add camera command.
-
-    :param argument: Argument of the command.
-    :return: Response.
-    """
-    key = str(uuid.uuid1()).replace("-", "")
-    cameras[key] = CameraExecutor()
-    cameras[key].execute(stream_url=argument, namespace=key)
-
-    camera = Camera()
-    camera.set_id(key)
-    camera.set_topics_list(rospy.get_published_topics(key))
-
-    return [json.dumps({"message": "Camera is added.", "code": 200, "camera": camera.to_dict()})]
-
-
-def command_remove_camera(argument):
-    """
-    Remove camera command.
-
-    :param argument: Argument of the command.
-    :return: Response.
-    """
-    key = argument
-
-    if not key in cameras:
-        return [json.dumps({"message": "Camera with this ID does not exist.", "code:": 404})]
-
-    cameras[key].stop()
-    del cameras[key]
-    return [json.dumps({"message": "Camera is removed.", "code": 200})]
-
-
-def command_unknown():
-    """
-    Command is unknown.
-
-    :return: Response.
-    """
-    return [json.dumps({"message": "Unknown", "code": 404})]
+lock = threading.Lock()
 
 
 def commander_callback(request):
@@ -98,19 +21,28 @@ def commander_callback(request):
     :param request: commander.srv arguments.
     :return: commander.srv result.
     """
-    if request.command == "list":
-        return command_get_cameras_list()
+    with lock:
+        if request.command == "camera.add":
+            command = AddCameraCommand()
+            response = command.execute(cameras=cameras, stream_url=request.argument)
 
-    elif request.command == "get":
-        return command_get_camera(request.argument)
+        elif request.command == "camera.get":
+            command = GetCameraCommand()
+            response = command.execute(cameras=cameras, id=request.argument)
 
-    elif request.command == "add":
-        return command_add_camera(request.argument)
+        elif request.command == "camera.list":
+            command = GetCamerasListCommand()
+            response = command.execute(cameras=cameras)
 
-    elif request.command == "remove":
-        return command_remove_camera(request.argument)
+        elif request.command == "camera.remove":
+            command = RemoveCameraCommand()
+            response = command.execute(cameras=cameras, id=request.argument)
 
-    return command_unknown()
+        else:
+            command = UnknownCommand()
+            response = command.execute()
+
+    return response
 
 
 if __name__ == "__main__":

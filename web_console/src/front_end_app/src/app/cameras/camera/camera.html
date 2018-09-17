@@ -2,8 +2,11 @@
     <h1 class="title">Camera</h1>
     <div class="row">
         <div class="col-md-12">
-            <p><strong>id:</strong> {{ camera.camera.id }}</p>
-            <mjpeg url="{{ camera.camera.url }}" width="100%"></mjpeg>
+            <p>
+                <strong>id:</strong> {{ camera.camera.id }}<br />
+                <strong>url:</strong> <a ng-href="{{ camera.camera.url }}">{{ camera.camera.url }}</a>
+            </p>
+            <mjpeg url="{{ camera.camera.localUrl }}" width="100%"></mjpeg>
         </div>
     </div>
 </div>

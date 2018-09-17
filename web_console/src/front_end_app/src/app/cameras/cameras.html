@@ -21,8 +21,10 @@
 
     <div class="row">
         <div class="col-md-4" ng-repeat="camera in cameras.camerasArray track by camera.id">
-            <p><strong>id:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a></p>
-            <mjpeg url="{{ camera.url }}" width="100%"></mjpeg>
+            <p>
+                <strong>id:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a><br />
+                <strong>url:</strong> <a ng-href="{{ camera.url }}">{{ camera.url }}</a></p>
+            <mjpeg url="{{ camera.localUrl }}" width="100%"></mjpeg>
             <button type="submit" ng-click="cameras.remove(camera)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"
                                                                                                aria-hidden="true"></span> Remove Camera
             </button>

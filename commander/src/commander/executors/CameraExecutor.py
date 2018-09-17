@@ -1,7 +1,7 @@
 import rospy
 import rospkg
 import time
-from commander.executor.Executor import Executor
+from commander.executors.Executor import Executor
 from commander.utils.Process import Process
 
 
@@ -18,9 +18,11 @@ class CameraExecutor(Executor):
         Execute the command.
 
         :param kwargs: key-worded arguments.
+        :keyword stream_url: Video stream's URL.
+        :keyword namespace: Camera's namespace.
         """
-        stream_url = kwargs.pop('stream_url', "https://localhost:mjpg/video.mjpg")
-        namespace = kwargs.pop('namespace', "/")
+        stream_url = kwargs.get('stream_url', "https://localhost:mjpg/video.mjpg")
+        namespace = kwargs.get('namespace', "/")
 
         # Stop process if it's running.
         if self.process is not None:
@@ -41,7 +43,15 @@ class CameraExecutor(Executor):
 
     def stop(self):
         """
-        Stop executor.
+        Stop executors.
         """
         if self.process is not None:
             self.process = Process.terminate(self.process)
+
+    def is_running(self):
+        """
+        Check if executor is running.
+
+        :return: True if it's running, False if not.
+        """
+        return Process.is_running(self.process)
