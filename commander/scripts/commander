@@ -8,6 +8,8 @@ from commander.commands.GetCameraCommand import GetCameraCommand
 from commander.commands.GetCamerasListCommand import GetCamerasListCommand
 from commander.commands.UnknownCommand import UnknownCommand
 from commander.commands.RemoveCameraCommand import RemoveCameraCommand
+from commander.commands.AddFilterCommand import AddFilterCommand
+from commander.commands.RemoveFilterCommand import RemoveFilterCommand
 
 cameras = {}
 lock = threading.Lock()
@@ -39,6 +41,18 @@ def commander_callback(request):
             command = RemoveCameraCommand()
             response = command.execute(cameras=cameras,
                                        id=request.arguments[0])
+
+        elif request.command == "filter.add":
+            command = AddFilterCommand()
+            response = command.execute(cameras=cameras,
+                                       camera_id=request.arguments[0],
+                                       filter_type=request.arguments[1])
+
+        elif request.command == "filter.remove":
+            command = RemoveFilterCommand()
+            response = command.execute(cameras=cameras,
+                                       camera_id=request.arguments[0],
+                                       filter_id=request.arguments[1])
 
         else:
             print(request.arguments)
