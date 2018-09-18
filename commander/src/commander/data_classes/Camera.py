@@ -14,6 +14,7 @@ class Camera:
         self.id = None
         self.url = None
         self.executor = None
+        self.filters = []
 
     def set_id(self, id):
         """
@@ -62,6 +63,14 @@ class Camera:
         :return: Executor of the camera.
         """
         return self.executor
+
+    def add_filter(self, filter):
+        """
+        Set camera's URL.
+
+        :param filter: Camera's filter.
+        """
+        self.filters.append(filter)
 
     def to_dict(self):
         """

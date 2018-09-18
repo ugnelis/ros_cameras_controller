@@ -29,7 +29,7 @@ export default class CamerasService {
     getCamerasList() {
         let listCamerasRequest = new roslib.ServiceRequest({
             command: "camera.list",
-            argument: ""
+            arguments: []
         });
 
         let promise = new Promise((resolve, reject) => {
@@ -44,7 +44,7 @@ export default class CamerasService {
     getCamera(id) {
         let getCameraRequest = new roslib.ServiceRequest({
             command: "camera.get",
-            argument: id
+            arguments: [id]
         });
 
         let promise = new Promise((resolve, reject) => {
@@ -59,7 +59,7 @@ export default class CamerasService {
     addCamera(camera) {
         let addCameraRequest = new roslib.ServiceRequest({
             command: "camera.add",
-            argument: camera.url
+            arguments: [camera.url]
         });
 
         let promise = new Promise((resolve, reject) => {
@@ -74,7 +74,7 @@ export default class CamerasService {
     removeCamera(camera) {
         let removeCameraRequest = new roslib.ServiceRequest({
             command: "camera.remove",
-            argument: camera.id
+            arguments: [camera.id]
         });
 
         let promise = new Promise((resolve, reject) => {

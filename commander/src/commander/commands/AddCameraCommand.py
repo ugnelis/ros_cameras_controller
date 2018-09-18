@@ -1,6 +1,5 @@
 import uuid
 import json
-import rospy
 from commander.commands.Command import Command
 from commander.data_classes.Camera import Camera
 from commander.executors.CameraExecutor import CameraExecutor
