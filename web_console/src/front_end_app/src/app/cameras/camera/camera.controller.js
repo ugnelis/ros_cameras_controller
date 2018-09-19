@@ -7,4 +7,3 @@ export default class CameraController {
         this.camera.localUrl = "http://localhost:8888/stream?topic=" + this.camera.topics_list[imageTopicIndex][0];
     }
 }
-

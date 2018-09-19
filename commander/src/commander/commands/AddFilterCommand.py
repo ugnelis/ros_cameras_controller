@@ -45,7 +45,7 @@ class AddFilterCommand(Command):
 
         filter = Filter()
         filter.id = id
-        filter.filter_type = filter_type
+        filter.type = filter_type
         filter.executor = filter_executor
 
         cameras[camera_id].add_filter(filter)

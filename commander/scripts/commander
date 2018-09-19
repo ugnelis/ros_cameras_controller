@@ -46,6 +46,10 @@ def commander_callback(request):
             response = command.execute(cameras=cameras,
                                        id=request.arguments[0])
 
+        elif request.command == "filter.types":
+            command = GetFilterTypesCommand()
+            response = command.execute(filter_types=filter_types)
+
         elif request.command == "filter.add":
             command = AddFilterCommand()
             response = command.execute(cameras=cameras,
@@ -58,10 +62,6 @@ def commander_callback(request):
             response = command.execute(cameras=cameras,
                                        camera_id=request.arguments[0],
                                        filter_id=request.arguments[1])
-
-        elif request.command == "filter.types":
-            command = GetFilterTypesCommand()
-            response = command.execute(filter_types=filter_types)
 
         else:
             print(request.arguments)

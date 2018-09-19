@@ -22,7 +22,6 @@ class GetFilterTypesCommand(Command):
 
         filter_types_list = []
         for key in filter_types:
-            print(key)
             filter_types_list.append(key)
 
         return [json.dumps({"filter_types": filter_types_list, "code": 200}) ]

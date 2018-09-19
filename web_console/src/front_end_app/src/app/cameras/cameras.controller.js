@@ -6,18 +6,19 @@ export default class CamerasController {
         this.$q = $q;
 
         for (let camera of this.camerasArray) {
-            camera.localUrl = CamerasController.makeCameraUrl(camera);
+            camera.localUrl = CamerasController.makeStreamUrl(camera);
         }
     }
 
     add(camera) {
         let promise = this.camerasService.addCamera(camera);
 
+        print(camera);
         this.$q.when(promise).then((result) => {
             this.alertService.add("success", result.message);
             
             let camera = result.camera;
-            camera.localUrl = CamerasController.makeCameraUrl(camera);
+            camera.localUrl = CamerasController.makeStreamUrl(camera);
             this.camerasArray.push(camera);
         });
     }
@@ -39,7 +40,7 @@ export default class CamerasController {
         });
     }
 
-    static makeCameraUrl(camera) {
+    static makeStreamUrl(camera) {
         if (Array.isArray(camera.topics_list) && camera.topics_list.length) {
             let imageTopicIndex = camera.topics_list.findIndex(c => c[1] === "sensor_msgs/Image");
 
@@ -49,4 +50,4 @@ export default class CamerasController {
     }
 }
 
-CamerasController.$inject = ['cameras', 'CamerasService', 'AlertService', '$q'];
+CamerasController.$inject = ['camerasResolved', 'CamerasService', 'AlertService', '$q'];
