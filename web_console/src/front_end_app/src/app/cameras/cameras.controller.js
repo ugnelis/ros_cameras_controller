@@ -1,6 +1,6 @@
 export default class CamerasController {
-    constructor(cameras, camerasService, alertService, $q) {
-        this.camerasArray = cameras.cameras;
+    constructor(camerasResolved, camerasService, alertService, $q) {
+        this.camerasArray = camerasResolved.cameras;
         this.camerasService = camerasService;
         this.alertService = alertService;
         this.$q = $q;

@@ -6,7 +6,7 @@ export default function routes($stateProvider) {
             controller: 'CamerasController',
             controllerAs: 'cameras',
             resolve: {
-                cameras: function (CamerasService) {
+                camerasResolved: function (CamerasService) {
                     return CamerasService.getCamerasList();
                 }
             }
