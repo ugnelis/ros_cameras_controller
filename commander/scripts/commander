@@ -10,8 +10,12 @@ from commander.commands.UnknownCommand import UnknownCommand
 from commander.commands.RemoveCameraCommand import RemoveCameraCommand
 from commander.commands.AddFilterCommand import AddFilterCommand
 from commander.commands.RemoveFilterCommand import RemoveFilterCommand
+from commander.commands.GetFilterTypesCommand import GetFilterTypesCommand
+from commander.executors.ThresholdFilterExecutor import ThresholdFilterExecutor
 
 cameras = {}
+filter_types = {"threshold": ThresholdFilterExecutor}
+
 lock = threading.Lock()
 
 
@@ -45,6 +49,7 @@ def commander_callback(request):
         elif request.command == "filter.add":
             command = AddFilterCommand()
             response = command.execute(cameras=cameras,
+                                       filter_types=filter_types,
                                        camera_id=request.arguments[0],
                                        filter_type=request.arguments[1])
 
@@ -53,6 +58,10 @@ def commander_callback(request):
             response = command.execute(cameras=cameras,
                                        camera_id=request.arguments[0],
                                        filter_id=request.arguments[1])
+
+        elif request.command == "filter.types":
+            command = GetFilterTypesCommand()
+            response = command.execute(filter_types=filter_types)
 
         else:
             print(request.arguments)

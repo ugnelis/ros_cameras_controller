@@ -33,9 +33,9 @@ class AddCameraCommand(Command):
             return [json.dumps({"message": "Bad URL of the video stream.", "code": 422})]
 
         camera = Camera()
-        camera.set_id(id)
-        camera.set_url(stream_url)
-        camera.set_executor(camera_executor)
+        camera.id = id
+        camera.url = stream_url
+        camera.executor = camera_executor
 
         cameras[id] = camera
 

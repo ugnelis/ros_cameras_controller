@@ -2,7 +2,6 @@ import uuid
 import json
 from commander.commands.Command import Command
 from commander.data_classes.Filter import Filter
-from commander.executors.ThresholdFilterExecutor import ThresholdFilterExecutor
 
 
 class AddFilterCommand(Command):
@@ -19,12 +18,14 @@ class AddFilterCommand(Command):
 
         :param kwargs: key-worded arguments.
         :keyword cameras: List of the cameras.
+        :keyword filter_types: List of the filter types.
         :keyword camera_id: Camera's ID.
         :keyword image_topic: Video camera's topic.
         :keyword filter_type: Filter type.
         :return: Response.
         """
         cameras = kwargs.get('cameras')
+        filter_types = kwargs.get('filter_types')
         camera_id = kwargs.get('camera_id')
         filter_type = kwargs.get('filter_type')
 
@@ -35,15 +36,17 @@ class AddFilterCommand(Command):
 
         id = str(uuid.uuid1()).replace("-", "")
 
-        if filter_type == "threshold":
-            filter_executor = ThresholdFilterExecutor()
-            filter_executor.execute(image_topic=image_topic, namespace=id)
-        else:
+        if not filter_type in filter_types:
             return [json.dumps({"message": "Filter type does not exist.", "code": 404})]
 
+        # Run filter.
+        filter_executor = filter_types[filter_type]()
+        filter_executor.execute(image_topic=image_topic, namespace=id)
+
         filter = Filter()
-        filter.set_id(id)
-        filter.set_executor(filter_executor)
+        filter.id = id
+        filter.filter_type = filter_type
+        filter.executor = filter_executor
 
         cameras[camera_id].add_filter(filter)
 

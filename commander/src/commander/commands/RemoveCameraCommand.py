@@ -26,9 +26,9 @@ class RemoveCameraCommand(Command):
             return [json.dumps({"message": "Camera with this ID does not exist.", "code:": 404})]
 
         # Stop all camera's filters.
-        for key, value in cameras[id].get_filters().items():
-            value.get_executor().stop()
+        for key, value in cameras[id].filters.items():
+            value.executor.stop()
 
-        cameras[id].get_executor().stop()
+        cameras[id].executor.stop()
         del cameras[id]
         return [json.dumps({"message": "Camera is removed.", "code": 200})]

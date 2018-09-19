@@ -27,9 +27,9 @@ class RemoveFilterCommand(Command):
         if not camera_id in cameras:
             return [json.dumps({"message": "Camera with this ID does not exist.", "code:": 404})]
 
-        if not filter_id in cameras[camera_id].get_filters():
+        if not filter_id in cameras[camera_id].filters:
             return [json.dumps({"message": "Filter with this ID does not exist.", "code:": 404})]
 
-        cameras[camera_id].get_filters()[filter_id].get_executor().stop()
-        cameras[camera_id].remove_filter(filter_id)
+        cameras[camera_id].filters[filter_id].executor.stop()
+        del cameras[camera_id].filters[filter_id]
         return [json.dumps({"message": "Filter is removed.", "code": 200})]
