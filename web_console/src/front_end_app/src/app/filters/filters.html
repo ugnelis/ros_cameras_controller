@@ -9,11 +9,16 @@
         <div ng-repeat="camera in filters.camerasArray">
             <div class="col-md-4" ng-repeat="filter in camera.filters">
                 <p>
-                    <strong>Camera ID:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a><br />
-                    <strong>Filter ID:</strong> {{ filter.id }}</a><br />
+                    <strong>Camera ID:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a><br/>
+                    <strong>Filter ID:</strong> {{ filter.id }}</a><br/>
                     <strong>Filter Type:</strong> {{ filter.type }}</a>
                 </p>
                 <mjpeg url="{{ filter.localUrl }}" width="100%"></mjpeg>
+                <button type="submit" ng-click="filters.removeFilter(camera, filter)"
+                        class="btn btn-danger col-md-6"><span
+                        class="glyphicon glyphicon-trash"
+                        aria-hidden="true"></span> Remove Filter
+                </button>
+            </div>
         </div>
     </div>
-</div>

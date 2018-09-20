@@ -1,7 +1,9 @@
 export default class CamerasController {
-    constructor(camerasResolved, camerasService, alertService, $q) {
+    constructor(camerasResolved, filterTypesResolved, camerasService, filtersService, alertService, $q) {
         this.camerasArray = camerasResolved.cameras;
+        this.filterTypesArray = filterTypesResolved.filter_types;
         this.camerasService = camerasService;
+        this.filtersService = filtersService;
         this.alertService = alertService;
         this.$q = $q;
 
@@ -10,20 +12,28 @@ export default class CamerasController {
         }
     }
 
-    add(camera) {
+    addCamera(camera) {
         let promise = this.camerasService.addCamera(camera);
 
-        print(camera);
         this.$q.when(promise).then((result) => {
+            if (result.code !== 200) {
+                this.alertService.add("danger", result.message);
+                return;
+            }
+
             this.alertService.add("success", result.message);
-            
+
             let camera = result.camera;
             camera.localUrl = CamerasController.makeStreamUrl(camera);
             this.camerasArray.push(camera);
         });
     }
 
-    remove(camera) {
+    removeCamera(camera) {
+        if (!confirm("Are you sure?")) {
+            return;
+        }
+
         if (!Array.isArray(this.camerasArray) || !this.camerasArray.length) {
             return;
         }
@@ -31,12 +41,35 @@ export default class CamerasController {
         let promise = this.camerasService.removeCamera(camera);
 
         this.$q.when(promise).then((result) => {
+            if (result.code !== 200) {
+                this.alertService.add("danger", result.message);
+                return;
+            }
+
             this.alertService.add("success", result.message);
 
             let index = this.camerasArray.indexOf(camera);
             if (index !== -1) {
                 this.camerasArray.splice(index, 1);
             }
+        });
+    }
+
+    addFilter(camera, filterType) {
+        if (filterType === undefined) {
+            this.alertService.add("danger", "Filter type is not selected.");
+            return;
+        }
+
+        let promise = this.filtersService.addFilter(camera, filterType);
+
+        this.$q.when(promise).then((result) => {
+            if (result.code !== 200) {
+                this.alertService.add("danger", result.message);
+                return;
+            }
+
+            this.alertService.add("success", result.message);
         });
     }
 
@@ -50,4 +83,11 @@ export default class CamerasController {
     }
 }
 
-CamerasController.$inject = ['camerasResolved', 'CamerasService', 'AlertService', '$q'];
+CamerasController.$inject = [
+    'camerasResolved',
+    'filterTypesResolved',
+    'CamerasService',
+    'FiltersService',
+    'AlertService',
+    '$q'
+];

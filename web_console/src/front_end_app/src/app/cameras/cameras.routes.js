@@ -8,6 +8,9 @@ export default function routes($stateProvider) {
             resolve: {
                 camerasResolved: function (CamerasService) {
                     return CamerasService.getCamerasList();
+                },
+                filterTypesResolved: function (FiltersService) {
+                    return FiltersService.getFilterTypes();
                 }
             }
         });

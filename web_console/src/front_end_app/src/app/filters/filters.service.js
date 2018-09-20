@@ -44,7 +44,7 @@ export default class FiltersService {
     addFilter(camera, filterType) {
         let addFilterRequest = new roslib.ServiceRequest({
             command: "filter.add",
-            arguments: [camera.url, filterType]
+            arguments: [camera.id, filterType]
         });
 
         let promise = new Promise((resolve, reject) => {
@@ -57,14 +57,14 @@ export default class FiltersService {
     }
 
     removeFilter(camera, filter) {
-        let removeCameraRequest = new roslib.ServiceRequest({
+        let removeFilterRequest = new roslib.ServiceRequest({
             command: "filter.remove",
             arguments: [camera.id, filter.id]
         });
 
         let promise = new Promise((resolve, reject) => {
             this.commanderClient.callService(
-                removeCameraRequest,
+                removeFilterRequest,
                 (params) => resolve(JSON.parse(params.message)));
         });
 
