@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import time
 import threading
 import rospy
 from std_srvs.srv import *
@@ -9,8 +8,14 @@ from commander.commands.GetCameraCommand import GetCameraCommand
 from commander.commands.GetCamerasListCommand import GetCamerasListCommand
 from commander.commands.UnknownCommand import UnknownCommand
 from commander.commands.RemoveCameraCommand import RemoveCameraCommand
+from commander.commands.AddFilterCommand import AddFilterCommand
+from commander.commands.RemoveFilterCommand import RemoveFilterCommand
+from commander.commands.GetFilterTypesCommand import GetFilterTypesCommand
+from commander.executors.ThresholdFilterExecutor import ThresholdFilterExecutor
 
 cameras = {}
+filter_types = {"threshold": ThresholdFilterExecutor}
+
 lock = threading.Lock()
 
 
@@ -24,11 +29,13 @@ def commander_callback(request):
     with lock:
         if request.command == "camera.add":
             command = AddCameraCommand()
-            response = command.execute(cameras=cameras, stream_url=request.argument)
+            response = command.execute(cameras=cameras,
+                                       stream_url=request.arguments[0])
 
         elif request.command == "camera.get":
             command = GetCameraCommand()
-            response = command.execute(cameras=cameras, id=request.argument)
+            response = command.execute(cameras=cameras,
+                                       id=request.arguments[0])
 
         elif request.command == "camera.list":
             command = GetCamerasListCommand()
@@ -36,9 +43,28 @@ def commander_callback(request):
 
         elif request.command == "camera.remove":
             command = RemoveCameraCommand()
-            response = command.execute(cameras=cameras, id=request.argument)
+            response = command.execute(cameras=cameras,
+                                       id=request.arguments[0])
+
+        elif request.command == "filter.types":
+            command = GetFilterTypesCommand()
+            response = command.execute(filter_types=filter_types)
+
+        elif request.command == "filter.add":
+            command = AddFilterCommand()
+            response = command.execute(cameras=cameras,
+                                       filter_types=filter_types,
+                                       camera_id=request.arguments[0],
+                                       filter_type=request.arguments[1])
+
+        elif request.command == "filter.remove":
+            command = RemoveFilterCommand()
+            response = command.execute(cameras=cameras,
+                                       camera_id=request.arguments[0],
+                                       filter_id=request.arguments[1])
 
         else:
+            print(request.arguments)
             command = UnknownCommand()
             response = command.execute()
 

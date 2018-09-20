@@ -11,7 +11,16 @@ import home from './home';
 import about from './about';
 import cameras from './cameras';
 import camera from './cameras/camera';
+import filters from './filters';
 
 
-angular.module('app', [uirouter, uibootstrap, home, about, cameras, camera])
+angular.module('app', [
+    uirouter,
+    uibootstrap,
+    home,
+    about,
+    cameras,
+    camera,
+    filters
+])
     .config(routing);

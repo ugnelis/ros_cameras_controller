@@ -1,7 +1,5 @@
 import json
-import rospy
 from commander.commands.Command import Command
-from commander.data_classes.Camera import Camera
 
 
 class GetCameraCommand(Command):
@@ -27,4 +25,4 @@ class GetCameraCommand(Command):
         if not id in cameras:
             return [json.dumps({"message": "Camera with this ID does not exist.", "code": 404})]
 
-        return [json.dumps(cameras[id].to_dict())]
+        return [json.dumps({"camera": cameras[id].to_dict(), "code": 200})]

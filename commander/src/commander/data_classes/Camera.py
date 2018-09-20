@@ -8,60 +8,26 @@ class Camera:
     :ivar id: Camera's ID.
     :ivar url: Camera's URL.
     :ivar executor: Executor of the camera.
+    :ivar filters: Filters of the camera.
     """
 
     def __init__(self):
         self.id = None
         self.url = None
         self.executor = None
+        self.filters = {}
 
-    def set_id(self, id):
+    def add_filter(self, filter):
         """
-        Set camera's ID.
+        Set camera's filter.
 
-        :param id: Camera's ID.
+        :param filter: Camera's filter.
         """
-        self.id = id
+        id = filter.id
+        if id in self.filters:
+            raise ValueError("Filter with this ID already exists.")
 
-    def get_id(self):
-        """
-        Get camera's ID.
-
-        :return: Camera's ID.
-        """
-        return self.id
-
-    def set_url(self, url):
-        """
-        Set camera's URL.
-
-        :param url: Camera's URL.
-        """
-        self.url = url
-
-    def get_url(self):
-        """
-        Get camera's URL.
-
-        :return: Camera's URL.
-        """
-        return self.url
-
-    def set_executor(self, executor):
-        """
-        Set executor of the camera.
-
-        :param executor: Executor of the camera.
-        """
-        self.executor = executor
-
-    def get_executor(self):
-        """
-        Get executor of the camera.
-
-        :return: Executor of the camera.
-        """
-        return self.executor
+        self.filters[id] = filter
 
     def to_dict(self):
         """
@@ -69,8 +35,15 @@ class Camera:
 
         :return: Dictionary of the camera object.
         """
+        filters_list = []
+
+        for key in self.filters.keys():
+            # Add to the cameras list.
+            filters_list.append(self.filters[key].to_dict())
+
         return {
             "id": self.id,
             "url": self.url,
+            "filters": filters_list,
             "topics_list": rospy.get_published_topics(self.id)
         }

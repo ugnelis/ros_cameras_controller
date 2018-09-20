@@ -1,6 +1,6 @@
 import roslib from 'roslib';
 
-export default class CamerasService {
+export default class FiltersService {
     constructor() {
         // Create a connection to the rosbridge WebSocket server.
         this.ros = new roslib.Ros();
@@ -26,60 +26,45 @@ export default class CamerasService {
         });
     }
 
-    getCamerasList() {
-        let listCamerasRequest = new roslib.ServiceRequest({
-            command: "camera.list",
+    getFilterTypes() {
+        let getFilterTypesRequest = new roslib.ServiceRequest({
+            command: "filter.types",
             arguments: []
         });
 
         let promise = new Promise((resolve, reject) => {
             this.commanderClient.callService(
-                listCamerasRequest,
+                getFilterTypesRequest,
                 (params) => resolve(JSON.parse(params.message)));
         });
 
         return promise;
     }
 
-    getCamera(id) {
-        let getCameraRequest = new roslib.ServiceRequest({
-            command: "camera.get",
-            arguments: [id]
+    addFilter(camera, filterType) {
+        let addFilterRequest = new roslib.ServiceRequest({
+            command: "filter.add",
+            arguments: [camera.id, filterType]
         });
 
         let promise = new Promise((resolve, reject) => {
             this.commanderClient.callService(
-                getCameraRequest,
+                addFilterRequest,
                 (params) => resolve(JSON.parse(params.message)));
         });
 
         return promise;
     }
 
-    addCamera(camera) {
-        let addCameraRequest = new roslib.ServiceRequest({
-            command: "camera.add",
-            arguments: [camera.url]
+    removeFilter(camera, filter) {
+        let removeFilterRequest = new roslib.ServiceRequest({
+            command: "filter.remove",
+            arguments: [camera.id, filter.id]
         });
 
         let promise = new Promise((resolve, reject) => {
             this.commanderClient.callService(
-                addCameraRequest,
-                (params) => resolve(JSON.parse(params.message)));
-        });
-
-        return promise;
-    }
-
-    removeCamera(camera) {
-        let removeCameraRequest = new roslib.ServiceRequest({
-            command: "camera.remove",
-            arguments: [camera.id]
-        });
-
-        let promise = new Promise((resolve, reject) => {
-            this.commanderClient.callService(
-                removeCameraRequest,
+                removeFilterRequest,
                 (params) => resolve(JSON.parse(params.message)));
         });
 
