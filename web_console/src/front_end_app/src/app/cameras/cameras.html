@@ -29,22 +29,25 @@
             </p>
             <div class="view">
                 <mjpeg url="{{ camera.localUrl }}" width="100%"></mjpeg>
-                <button type="button" class="close" aria-label="Close" ng-click="cameras.removeCamera(camera)"><span
-                        aria-hidden="true">&times;</span></button>
-            </div>
-
-            <div name="filtersTypeForm">
-                <select name="filtersTypeSelect" id="filtersTypeSelect" class="col-md-8"
-                        ng-options="filterType for filterType in cameras.filterTypesArray"
-                        ng-model="selectedFilterType"></select>
-                <button type="submit"
-                        ng-click="cameras.addFilter(camera, selectedFilterType)"
-                        class="btn btn-success col-md-4"><span
-                        class="glyphicon glyphicon-plus"
-                        aria-hidden="true"></span> Add Filter
+                <button type="button" class="close" aria-label="Close" ng-click="cameras.removeCamera(camera)">
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
+            <div class="input-group">
+                <select name="filtersTypeSelect" id="filtersTypeSelect" class="form-control"
+                        ng-options="filterType for filterType in cameras.filterTypesArray"
+                        ng-model="selectedFilterType"></select>
+
+                <span class="input-group-btn">
+                    <button type="submit"
+                            ng-click="cameras.addFilter(camera, selectedFilterType)"
+                            class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"
+                              aria-hidden="true"></span> Add Filter
+                    </button>
+                </span>
+            </div>
         </div>
     </div>
 </div>
