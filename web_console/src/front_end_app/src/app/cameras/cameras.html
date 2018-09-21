@@ -18,28 +18,31 @@
     </div>
 
     <div class="row">
-        <div alertbox></div>
+        <div class="col-md-12">
+            <div alertbox></div>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-md-4 stream" ng-repeat="camera in cameras.camerasArray track by camera.id">
-            <p>
-                <strong>id:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a><br/>
-                <strong>url:</strong> <a ng-href="{{ camera.url }}">{{ camera.url }}</a>
-            </p>
-            <div class="view">
-                <mjpeg url="{{ camera.localUrl }}" width="100%"></mjpeg>
+        <div class="col-md-4" ng-repeat="camera in cameras.camerasArray track by camera.id">
+            <div class="panel panel-default stream view">
                 <button type="button" class="close" aria-label="Close" ng-click="cameras.removeCamera(camera)">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
+                <div class="panel-body">
+                    <p>
+                        <strong>id:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a><br/>
+                        <strong>url:</strong> <a ng-href="{{ camera.url }}">{{ camera.url }}</a>
+                    </p>
+                    <div>
+                        <mjpeg url="{{ camera.localUrl }}" width="100%"></mjpeg>
+                    </div>
+                    <div class="input-group">
+                        <select name="filtersTypeSelect" id="filtersTypeSelect" class="form-control"
+                                ng-options="filterType for filterType in cameras.filterTypesArray"
+                                ng-model="selectedFilterType"></select>
 
-            <div class="input-group">
-                <select name="filtersTypeSelect" id="filtersTypeSelect" class="form-control"
-                        ng-options="filterType for filterType in cameras.filterTypesArray"
-                        ng-model="selectedFilterType"></select>
-
-                <span class="input-group-btn">
+                        <span class="input-group-btn">
                     <button type="submit"
                             ng-click="cameras.addFilter(camera, selectedFilterType)"
                             class="btn btn-success">
@@ -47,6 +50,8 @@
                               aria-hidden="true"></span> Add Filter
                     </button>
                 </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

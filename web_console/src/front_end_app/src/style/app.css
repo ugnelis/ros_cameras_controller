@@ -27,7 +27,6 @@ div.stream:hover {
 
 .view .close {
     position: absolute;
-    top: 5%;
-    right: 5%;
-
+    top: 0;
+    right: 2%;
 }
