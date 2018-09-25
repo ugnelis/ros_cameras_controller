@@ -16,3 +16,17 @@ body {
 .container .text-muted {
     margin: 20px 0;
 }
+
+div.stream:hover {
+    background: #fcf8e3;
+}
+
+.view {
+    position: relative;
+}
+
+.view .close {
+    position: absolute;
+    top: 0;
+    right: 2%;
+}

@@ -2,23 +2,32 @@
     <h1 class="title">Filters</h1>
 
     <div class="row">
-        <div alertbox></div>
+        <div class="col-md-12">
+            <div alertbox></div>
+        </div>
     </div>
 
     <div class="row">
         <div ng-repeat="camera in filters.camerasArray">
             <div class="col-md-4" ng-repeat="filter in camera.filters">
-                <p>
-                    <strong>Camera ID:</strong> <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a><br/>
-                    <strong>Filter ID:</strong> {{ filter.id }}</a><br/>
-                    <strong>Filter Type:</strong> {{ filter.type }}</a>
-                </p>
-                <mjpeg url="{{ filter.localUrl }}" width="100%"></mjpeg>
-                <button type="submit" ng-click="filters.removeFilter(camera, filter)"
-                        class="btn btn-danger col-md-6"><span
-                        class="glyphicon glyphicon-trash"
-                        aria-hidden="true"></span> Remove Filter
-                </button>
+                <div class="panel panel-default stream view">
+                    <button type="button" class="close" aria-label="Close"
+                            ng-click="filters.removeFilter(camera, filter)"><span
+                            aria-hidden="true">&times;</span></button>
+
+                    <div class="panel-body">
+                        <p>
+                            <strong>Camera ID:</strong>
+                            <a ng-href="/{{ 'cameras' }}/{{ camera.id }}">{{ camera.id }}</a><br/>
+                            <strong>Filter ID:</strong> {{ filter.id }}</a><br/>
+                            <strong>Filter Type:</strong> {{ filter.type }}</a>
+                        </p>
+                        <div>
+                            <mjpeg url="{{ filter.localUrl }}" width="100%"></mjpeg>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
