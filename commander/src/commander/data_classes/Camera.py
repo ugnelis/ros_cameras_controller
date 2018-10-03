@@ -6,6 +6,7 @@ class Camera:
     Camera class.
 
     :ivar id: Camera's ID.
+    :ivar name: Camera's name.
     :ivar url: Camera's URL.
     :ivar executor: Executor of the camera.
     :ivar filters: Filters of the camera.
@@ -13,6 +14,7 @@ class Camera:
 
     def __init__(self):
         self.id = None
+        self.name = None
         self.url = None
         self.executor = None
         self.filters = {}
@@ -43,6 +45,7 @@ class Camera:
 
         return {
             "id": self.id,
+            "name": self.name,
             "url": self.url,
             "filters": filters_list,
             "topics_list": rospy.get_published_topics(self.id)

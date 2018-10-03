@@ -1,6 +1,7 @@
 import psycopg2
 import rospy
 import rospkg
+from commander.data_classes.Camera import Camera
 
 SCHEMA_SQL_FILE = rospkg.RosPack().get_path('commander') + "/resources/schema.sql"
 
@@ -40,6 +41,8 @@ class Database:
     @property
     def connection(self):
         """
+        Database connection.
+
         :return: psycopg2 connection.
         """
         if not self._connection or self._connection.closed:
@@ -55,6 +58,8 @@ class Database:
     @property
     def cursor(self):
         """
+        Database cursor.
+
         :return: psycopg2 cursor.
         """
         if not self._cursor or self._cursor.closed:
@@ -62,8 +67,69 @@ class Database:
         return self._cursor
 
     def create(self):
+        """
+        Create database tables.
+        """
         try:
             self.cursor.execute(open(SCHEMA_SQL_FILE).read())
             self.connection.commit()
         except psycopg2.Error as e:
             rospy.logerr(e)
+        finally:
+            self.connection.close()
+
+    def add_camera(self, camera):
+        """
+        Add camera to the database.
+
+        :param camera: Camera.
+        """
+
+        sql = """INSERT INTO cameras(name, url)
+                 VALUES('%s', '%s')
+                 RETURNING id;""" \
+              % (camera.name, camera.url)
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+            camera.id = self.cursor.fetchone()[0]
+        except psycopg2.Error as e:
+            rospy.logerr(e)
+        finally:
+            self.connection.close()
+
+    def remove_camera(self, id):
+        """
+        Remove camera from the database.
+
+        :param id: Camara's ID.
+        """
+        sql = """DELETE FROM cameras
+                 WHERE id = '%s'""" \
+              % id
+        try:
+            self.cursor.execute(sql)
+            self.connection.commit()
+        except psycopg2.Error as e:
+            rospy.logerr(e)
+        finally:
+            self.connection.close()
+
+    def get_camera(self, id):
+        """
+        Get camera from the database.
+
+        :param id: Camera's ID.
+        :return: Camera.
+        """
+
+        pass
+
+    def get_cameras(self):
+        pass
+
+    def add_filter(self):
+        pass
+
+    def remove_filter(self):
+        pass

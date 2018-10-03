@@ -13,6 +13,7 @@ from commander.commands.RemoveFilterCommand import RemoveFilterCommand
 from commander.commands.GetFilterTypesCommand import GetFilterTypesCommand
 from commander.executors.ThresholdFilterExecutor import ThresholdFilterExecutor
 from commander.utils.Database import Database
+from commander.data_classes.Camera import Camera
 
 cameras = {}
 filter_types = {"threshold": ThresholdFilterExecutor}
@@ -86,5 +87,12 @@ if __name__ == "__main__":
         host="localhost",
         port=5432
     )
+
+    camera = Camera()
+    camera.id = "d22174aa-cbbf-493f-8d08-81e01728c6ac"
+    camera.name = "123"
+    camera.url = "https://123"
+
+    database.remove_camera(camera.id)
 
     rospy.spin()
