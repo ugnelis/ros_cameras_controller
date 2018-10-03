@@ -1,4 +1,5 @@
 import psycopg2
+import rospy
 import rospkg
 
 SCHEMA_SQL_FILE = rospkg.RosPack().get_path('commander') + "/resources/schema.sql"
@@ -33,6 +34,9 @@ class Database:
         self._cursor = None
         self._connection = None
 
+        # Create tables.
+        self.create()
+
     @property
     def connection(self):
         """
@@ -62,4 +66,4 @@ class Database:
             self.cursor.execute(open(SCHEMA_SQL_FILE).read())
             self.connection.commit()
         except psycopg2.Error as e:
-            print(e)
+            rospy.logerr(e)

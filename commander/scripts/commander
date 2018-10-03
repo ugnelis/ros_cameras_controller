@@ -12,9 +12,11 @@ from commander.commands.AddFilterCommand import AddFilterCommand
 from commander.commands.RemoveFilterCommand import RemoveFilterCommand
 from commander.commands.GetFilterTypesCommand import GetFilterTypesCommand
 from commander.executors.ThresholdFilterExecutor import ThresholdFilterExecutor
+from commander.utils.Database import Database
 
 cameras = {}
 filter_types = {"threshold": ThresholdFilterExecutor}
+database = None
 
 lock = threading.Lock()
 
@@ -76,5 +78,13 @@ if __name__ == "__main__":
 
     commander_service = rospy.Service(
         'commander', commander, commander_callback)
+
+    database = Database(
+        dbname="ros_db",
+        username="ros",
+        password="ros",
+        host="localhost",
+        port=5432
+    )
 
     rospy.spin()
