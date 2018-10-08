@@ -44,6 +44,53 @@ To build from source, clone the latest version from this repository into your ca
 	cd ../
 	catkin_make
 	
+### For newbies
+#### Setting up (Recommended)
+1. Install [*Ubuntu 16.04 LTS*](http://releases.ubuntu.com/16.04/), [*ROS Kinetic*](http://wiki.ros.org/kinetic/Installation) and [*OpenCV 3.1+*](https://docs.opencv.org/3.1.0/d7/d9f/tutorial_linux_install.html).
+
+2. Be sure that `ROS` is exported to the shell when new shell is opened: [link](http://wiki.ros.org/kinetic/Installation/Ubuntu#kinetic.2BAC8-Installation.2BAC8-DebEnvironment.Environment_setup).
+
+3. Install *web_video_server*:
+
+	sudo apt-get install ros-kinetic-web-video-server
+
+4. Install *rosbridge-suite*:
+
+	sudo apt-get install sudo apt-get install ros-kinetic-rosbridge-suite
+
+5. Install *NodeJS* and *npm*:
+
+	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	sudo apt-get install -y nodejs
+	
+6. Install *Flask*:
+
+	sudo pip install Flask
+
+
+7. Create catkin workspace for storing ROS source projects:
+	
+	mkdir -p ~/catkin_ws/src
+	cd ~/catkin_ws/
+	catkin_make
+	
+8. Clone this project to `~/catkin_ws/src`.
+
+	cd ~/catkin_ws/src
+	git clone https://github.com/ugnelis/ros_cameras_controller.git
+	cd ../
+	catkin_make
+	
+9. Run project:
+* Open first terminal and run **commander** package:
+
+	roslaunch commander commander.launch
+	
+* Open second terminal and run **web_console** package:
+
+	roslaunch web_console web_console.launch
+
+
 [Robot Operating System (ROS)]: http://www.ros.org
 [OpenCV]: https://opencv.org
 [Flask]: http://flask.pocoo.org
