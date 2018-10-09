@@ -1,117 +1,126 @@
-# ros_cameras_controller
+# ROS Cameras Controller
 
 ## Overview
+ROS Cameras Controller uses streamed videos and helps to manage them. 
 
-*ros_cameras_controller* uses already stream videos and helps them manage.
+[![See it in action](https://img.youtube.com/vi/Fejp80YfLMQ/0.jpg)](https://www.youtube.com/watch?v=Fejp80YfLMQ)
 
-The project consists of these ROS packages (more details in README.md files of each package):
+The project consists of these [ROS] packages (more details in readme files of each package):
 * [commander](commander) - handles requests made by other packages.
-* [image_processing_filters](image_processing_filters) - lets to apply image processing filter to ROS image topics.
-* [video_stream_to_topic](video_stream_to_topic) - converts video stream (e.g. from IP camera) and makes it as a ROS image topic.
+* [image_processing_filters](image_processing_filters) - allows to apply image processing filter to ROS image topics.
+* [video_stream_to_topic](video_stream_to_topic) - converts video stream (e.g. from IP camera) and converts it to ROS image topic.
 * [web_console](web_console) - runs web consoles for managing cameras. It uses Flask for app back-end and AngularJS for front-end.
 
 ## Architecture
 ![Architecture](architecture.png)
 
-### License
+## Development
 
-The source code is released under a [BSD 3-Clause license](LICENSE).
+### Dependencies
+- [Robot Operating System (ROS)] (Middleware for Robotics).
+- [OpenCV] (Computer Vision).
+- [Flask] (Back-End App).
+- [AngularJS] (Front-End App).
+- [npm] (Front-End Package Manager).
 
-**Author(s): Ugnius Malūkas  
-Maintainer: Ugnius Malūkas, ugnius@malukas.lt**
+### Building (simple)
 
-The web_console package has been tested under [ROS] Kinetic and Ubuntu 16.04.
+To build, clone the latest version from this repository into your catkin workspace and compile the package using:
+```bash
+cd catkin_workspace/src
+git clone https://github.com/ugnelis/ros_cameras_controller.git
+cd ../
+catkin_make
+```
 
-## Installation
-
-### Building from Source
-
-#### Dependencies
-
-- [Robot Operating System (ROS)] (Middleware for Robotics),
-- [OpenCV] (Computer Vision),
-- [Flask] (Back-End App),
-- [AngularJS] (Front-End App),
-- [npm] (Front-End Package Manager)
-
-
-#### Building
-
-To build from source, clone the latest version from this repository into your catkin workspace and compile the package using
-
-	cd catkin_workspace/src
-	git clone https://github.com/ugnelis/ros_cameras_controller.git
-	cd ../
-	catkin_make
-	
-### For Newbies
-#### Setting up (Recommended)
+### Building (detailed)
 1. Install [*Ubuntu 16.04 LTS*](http://releases.ubuntu.com/16.04/), [*ROS Kinetic*](http://wiki.ros.org/kinetic/Installation) and [*OpenCV 3.1+*](https://docs.opencv.org/3.1.0/d7/d9f/tutorial_linux_install.html).
 
-2. Be sure that `ROS` is exported to the shell when new shell is opened: [link](http://wiki.ros.org/kinetic/Installation/Ubuntu#kinetic.2BAC8-Installation.2BAC8-DebEnvironment.Environment_setup).
+2. Make sure that [ROS] environment is setup: [link](http://wiki.ros.org/kinetic/Installation/Ubuntu#kinetic.2BAC8-Installation.2BAC8-DebEnvironment.Environment_setup).
 
 3. Install *web_video_server*:
-
-	    sudo apt-get install ros-kinetic-web-video-server
+```bash
+sudo apt-get install ros-kinetic-web-video-server
+```
 
 4. Install *rosbridge-suite*:
-
-	    sudo apt-get install sudo apt-get install ros-kinetic-rosbridge-suite
+```bash
+sudo apt-get install ros-kinetic-rosbridge-suite
+```
 
 5. Install *NodeJS* and *npm*:
+```bash
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
 
-	    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-	    sudo apt-get install -y nodejs
-	
 6. Install *Flask*:
-
-    	sudo pip install Flask
-
+```bash
+sudo pip install Flask
+```
 
 7. Create catkin workspace for storing ROS source projects:
-	
-	    mkdir -p ~/catkin_ws/src
-	    cd ~/catkin_ws/
-	    catkin_make
-	
-8. Clone this project to `~/catkin_ws/src`.
+```bash
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/
+catkin_make
+```
 
-	    cd ~/catkin_ws/src
-	    git clone https://github.com/ugnelis/ros_cameras_controller.git
-	    cd ../
-	    catkin_make
+8. Clone this project to `~/catkin_ws/src`:
+```bash
+cd ~/catkin_ws/src
+git clone https://github.com/ugnelis/ros_cameras_controller.git
+cd ../
+catkin_make
+```
 
-#### Running Prooject in Production
-* Open first terminal and run **commander** package:
+### Running (production)
+1. Start the **commander** package:
+```bash
+roslaunch commander commander.launch
+```
 
-	    roslaunch commander commander.launch
-	
-* Open second terminal and run **web_console** package:
+2. Start the **web_console** package:
+```bash
+roslaunch web_console web_console.launch
+```
 
-	    roslaunch web_console web_console.launch
+3. **web_console** is now running on http://localhost:9999.
 
-* **web_console** is now running on http://localhost:9999.
+### Running (development)
+1. Open first terminal and run **commander** package:
+```bash
+roslaunch commander commander.launch
+```
 
-#### Running Prooject in Development
-* Open first terminal and run **commander** package:
+2. Open second terminal and run **rosbridge_server** package:
+```bash
+roslaunch rosbridge_server rosbridge_websocket.launch
+```
 
-	    roslaunch commander commander.launch
-	
-* Open second terminal and run **rosbridge_server** package:
+3. Open third terminal and run **web_video_server** package:
+```bash
+rosrun web_video_server web_video_server _port:=8888
+```
 
-        roslaunch rosbridge_server rosbridge_websocket.launch
+```bash
+roscd web_console/src/front_end_app
+npm start
+```
 
-* Open third terminal and run **web_video_server** package:
+## Testing
+The [web_console](web_console) package has been tested under [ROS] Kinetic and Ubuntu 16.04.
 
-        rosrun web_video_server web_video_server _port:=8888
+## License
+The source code is released under the [BSD 3-Clause license](LICENSE).
 
-* Open fourth terminal and front-end app of **web_console** package:
+**Author: Ugnius Malūkas**
 
-	    roscd web_console/src/front_end_app
-	    npm start
+**Maintainer: Ugnius Malūkas, ugnius@malukas.lt**
 
 [Robot Operating System (ROS)]: http://www.ros.org
 [OpenCV]: https://opencv.org
 [Flask]: http://flask.pocoo.org
 [npm]: https://www.npmjs.com
 [AngularJS]: https://angularjs.org
+[ROS]: http://www.ros.org/
