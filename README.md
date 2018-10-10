@@ -66,12 +66,28 @@ cd ~/catkin_ws/
 catkin_make
 ```
 
-8. Clone this project to `~/catkin_ws/src`:
+8. Source catkin workspace:
+```bash
+source ~/catkin_ws/devel/setup.bash
+```
+
+(Recommended) It's convenient if catkin workspace environment variables are automatically added to your bash session every time a new shell is launched: 
+```bash
+echo "source ~/catkin_ws/devel/setup.bash >> ~/.bashrc
+source ~/.bashrc
+```
+
+9. Clone this project to `~/catkin_ws/src`:
 ```bash
 cd ~/catkin_ws/src
 git clone https://github.com/ugnelis/ros_cameras_controller.git
 cd ../
 catkin_make
+```
+
+10. (First build only) If `ros_cameras_controller` packages aren't found, reopen terminal or source catkin workspace again:
+```bash
+source ~/catkin_ws/devel/setup.bash
 ```
 
 ### Running (production)
