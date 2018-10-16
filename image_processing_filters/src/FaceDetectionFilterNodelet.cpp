@@ -1,20 +1,20 @@
-#include "image_processing_filters/FaceDetectionFilterNodelet.h"
-
 #include <pluginlib/class_list_macros.h>
+
+#include "image_processing_filters/FaceDetectionFilterNodelet.h"
 
 PLUGINLIB_EXPORT_CLASS(image_processing_filters::FaceDetectionFilterNodelet, nodelet::Nodelet)
 
 
 namespace image_processing_filters {
 
-  FaceDetectionFilterNodelet::FaceDetectionFilterNodelet()
-        : imageTransport_(),
-          imagePublisher_(),
-          imageSubscriber_(),
-          face_cascade_string_(){
-  }
+FaceDetectionFilterNodelet::FaceDetectionFilterNodelet()
+      : imageTransport_(),
+        imagePublisher_(),
+        imageSubscriber_(),
+        faceCascadeString_() {
+}
 
-  FaceDetectionFilterNodelet::~FaceDetectionFilterNodelet() {
+FaceDetectionFilterNodelet::~FaceDetectionFilterNodelet() {
 
 }
 
@@ -26,10 +26,10 @@ void FaceDetectionFilterNodelet::onInit() {
     imagePublisher_ = imageTransport_->advertise("face_detect", 1);
     imageSubscriber_ = imageTransport_->subscribe("image_raw", 1, &FaceDetectionFilterNodelet::imageCallback, this);
 
-    privateNodeHandle.param<std::string>("classifier_file", face_cascade_string_, "haarcascade_frontalface_alt.xml");
+    privateNodeHandle.param<std::string>("classifier_file", faceCascadeString_, "haarcascade_frontalface_alt.xml");
 
-    if( !face_cascade_.load( face_cascade_string_ ) ) {
-      ROS_ERROR_STREAM("error loading cascade classifier: " << face_cascade_string_);
+    if(!faceCascade_.load(faceCascadeString_)) {
+      ROS_ERROR_STREAM("error loading cascade classifier: " << faceCascadeString_);
     }
 }
 
@@ -48,14 +48,14 @@ void FaceDetectionFilterNodelet::imageCallback(const sensor_msgs::ImageConstPtr 
 
     //-- Detect faces
     std::vector<cv::Rect> faces;
-    face_cascade_.detectMultiScale( greyImage, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
+    faceCascade_.detectMultiScale(greyImage, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
 
     for( size_t i = 0; i < faces.size(); i++ )
     {
-      cv::Point center( faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5 );
-      cv::ellipse( receivedImage, center,
-                   cv::Size( faces[i].width*0.5, faces[i].height*0.5),
-                   0, 0, 360, cv::Scalar( 255, 0, 255 ), 4, 8, 0 );
+      cv::Point center(faces[i].x + faces[i].width * 0.5, faces[i].y + faces[i].height * 0.5);
+      cv::ellipse(receivedImage, center,
+                  cv::Size(faces[i].width * 0.5, faces[i].height * 0.5),
+                  0, 0, 360, cv::Scalar( 255, 0, 255 ), 4, 8, 0);
     }
 
     // Prepare result ROS image.

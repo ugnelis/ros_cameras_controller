@@ -42,8 +42,8 @@ private:
     image_transport::Publisher imagePublisher_;                         // Image publisher.
     image_transport::Subscriber imageSubscriber_;                       // Image subscriber.
 
-    std::string face_cascade_string_;
-    cv::CascadeClassifier face_cascade_;
+    std::string faceCascadeString_;
+    cv::CascadeClassifier faceCascade_;
 };
 
 } // namespace image_processing_filters
