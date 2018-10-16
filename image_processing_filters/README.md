@@ -79,6 +79,31 @@ Applies threshold filter to video stream and makes it as a ROS image topic.
 
 	Threshold value.
 
+### FaceDetectionFilterNodelet
+
+Runs face detection using Haar classifier and outputs to ROS image topic.
+
+
+#### Subscribed Topics
+
+* **`/image_raw`** ([sensor_msgs/Image])
+
+	Video stream.
+
+
+#### Published Topics
+
+* **`/face_detect`** ([sensor_msgs/Image])
+
+	Image with face detection ROIs.
+
+
+#### Parameters
+
+* **`classifier_file`** (string)
+
+	Name of trained Haar classifier file.
+
 
 ## Bugs & Feature Requests
 

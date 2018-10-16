@@ -4,4 +4,10 @@
            base_class_type="nodelet::Nodelet">
         <description>Nodelet to perform Threshold filter on the image stream.</description>
     </class>
+
+    <class name="image_processing_filters/FaceDetectionFilterNodelet"
+            type="image_processing_filters::FaceDetectionFilterNodelet"
+            base_class_type="nodelet::Nodelet">
+        <description>Nodelet to perform face detection filter on the image stream.</description>
+    </class>
 </library>
