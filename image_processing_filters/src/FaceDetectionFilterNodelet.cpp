@@ -28,7 +28,7 @@ void FaceDetectionFilterNodelet::onInit() {
 
     privateNodeHandle.param<std::string>("classifier_file", faceCascadeString_, "haarcascade_frontalface_alt.xml");
 
-    if(!faceCascade_.load(faceCascadeString_)) {
+    if (!faceCascade_.load(faceCascadeString_)) {
       ROS_ERROR_STREAM("error loading cascade classifier: " << faceCascadeString_);
     }
 }
@@ -50,8 +50,7 @@ void FaceDetectionFilterNodelet::imageCallback(const sensor_msgs::ImageConstPtr 
     std::vector<cv::Rect> faces;
     faceCascade_.detectMultiScale(greyImage, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
 
-    for( size_t i = 0; i < faces.size(); i++ )
-    {
+    for(size_t i = 0; i < faces.size(); i++) {
       cv::Point center(faces[i].x + faces[i].width * 0.5, faces[i].y + faces[i].height * 0.5);
       cv::ellipse(receivedImage, center,
                   cv::Size(faces[i].width * 0.5, faces[i].height * 0.5),
