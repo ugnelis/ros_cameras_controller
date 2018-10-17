@@ -29,11 +29,10 @@ void ThresholdFilterNodelet::onInit() {
     privateNodeHandle.param<int>("threshold_value", thresholdValue_, 100);
 }
 
-void ThresholdFilterNodelet::imageCallback(const sensor_msgs::ImageConstPtr &message) {
+void ThresholdFilterNodelet::imageCallback(const sensor_msgs::ImageConstPtr& message) {
     cv_bridge::CvImagePtr cvImagePtr;
     try {
         cvImagePtr = cv_bridge::toCvCopy(message, sensor_msgs::image_encodings::BGR8);
-
     } catch (cv_bridge::Exception &e) {
         ROS_ERROR("cv_bridge exception: %s", e.what());
     }
