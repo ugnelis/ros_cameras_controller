@@ -101,7 +101,7 @@ docker network create ros-cam-net
 3. Start **commander**:
 ```bash
 docker run -dit --rm \
-  --net ros-cam \
+  --net ros-cam-net \
   --name commander \
   ros-cam \
   commander commander.launch
@@ -110,7 +110,7 @@ docker run -dit --rm \
 3. Start **web_console**:
 ```bash
 docker run -dit --rm \
-  --net ros-cam \
+  --net ros-cam-net \
   --name web_console \
   --env ROS_MASTER_URI=http://commander:11311 \
   -p 8888:8888 -p 9090:9090 -p 9999:9999 \
