@@ -107,7 +107,7 @@ docker run -dit --rm \
   commander commander.launch
 ```
 
-3. Start **web_console**:
+4. Start **web_console**:
 ```bash
 docker run -dit --rm \
   --net ros-cam-net \
