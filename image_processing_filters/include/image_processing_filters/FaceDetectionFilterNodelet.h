@@ -35,7 +35,7 @@ public:
      * Called each time when camera image is received.
      * @param message Image message.
      */
-    void imageCallback(const sensor_msgs::ImageConstPtr& message);
+    void imageCallback(const sensor_msgs::ImageConstPtr &message);
 
 private:
     std::shared_ptr<image_transport::ImageTransport> imageTransport_;   // Image receiver.
