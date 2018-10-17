@@ -1,0 +1,17 @@
+<launch>
+    <!-- Topic of the video stream. -->
+    <arg name="image_raw" default="/video/image_raw"/>
+    <!-- Classifier file -->
+    <arg name="classifier_file" default="$(find image_processing_filters)/params/haarcascade_frontalface_default.xml" />
+
+    <node pkg="nodelet" type="nodelet" name="image_processing_filters_manager" args="manager" output="screen"/>
+
+    <node pkg="nodelet"
+          type="nodelet"
+          name="facedetection_filter_nodelet"
+          args="load image_processing_filters/FaceDetectionFilterNodelet image_processing_filters_manager"
+          output="screen">
+        <remap from="image_raw" to="$(arg image_raw)"/>
+        <param name="classifier_file" value="$(arg classifier_file)"/>
+    </node>
+</launch>

@@ -36,6 +36,7 @@ include_directories(
 add_library(
         ${PROJECT_NAME}
         src/ThresholdFilterNodelet.cpp
+        src/FaceDetectionFilterNodelet.cpp
 )
 
 #add_dependencies(
