@@ -103,6 +103,37 @@ roslaunch web_console web_console.launch
 
 3. **web_console** is now running on http://localhost:9999.
 
+### Running (production, Docker)
+1. Build Docker image:
+```bash
+docker build -t ros-cam .
+```
+
+2. Create a Docker network:
+```bash
+docker network create ros-cam-net
+```
+
+3. Start **commander**:
+```bash
+docker run -dit --rm \
+  --net ros-cam-net \
+  --name commander \
+  ros-cam \
+  commander commander.launch
+```
+
+4. Start **web_console**:
+```bash
+docker run -dit --rm \
+  --net ros-cam-net \
+  --name web_console \
+  --env ROS_MASTER_URI=http://commander:11311 \
+  -p 8888:8888 -p 9090:9090 -p 9999:9999 \
+  ros-cam \
+  web_console web_console.launch
+```
+
 ### Running (development)
 1. Open first terminal and run **commander** package:
 ```bash
